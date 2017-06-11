@@ -1,0 +1,16 @@
+dist/*.gz
+test/e2e/report
+test/e2e/screenshots
+node_modules
+.DS_Store
+*.log
+*.swp
+/example/
+npm-debug.log*
+.idea
+/config/karma.unit.conf.js
+/config/nightwatch.conf.js
+/config/karma.sauce.conf.js
+/config/karma.base.conf.js
+/config/karma.cover.conf.js
+/config/webpack.dev.conf.js

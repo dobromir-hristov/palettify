@@ -1,0 +1,9 @@
+{
+  "presets": ["es2015"],
+  "plugins": ["babel-plugin-espower"],
+  "env": {
+    "test": {
+      "presets": ["power-assert"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "globals": {
+    "waitForUpdate": true,
+    "nextTick": true,
+    "delay": true,
+    "assert": true
+  }
+}

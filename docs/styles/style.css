@@ -1,0 +1,43 @@
+.image-list {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto -15px !important;
+}
+
+.hoverTarget {
+  flex: 1 1 25%;
+  padding: 15px;
+}
+
+.imageTarget {
+  transition: .3s linear 0s;
+  display: block;
+  height: auto;
+}
+
+.hoverTarget.hoverTarget--bg {
+  flex: 1 1 50%;
+}
+
+.hoverTarget.hoverTarget--bg .imageTarget {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.attachTo {
+  transition: .3s;
+  display: block;
+}
+
+.box-shadow-attached {
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .hoverTarget {
+    flex: 1 1 50%;
+  }
+}

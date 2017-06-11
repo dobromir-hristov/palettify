@@ -1,0 +1,9 @@
+.*
+*.log
+*.swp
+*.yml
+coverage
+config
+dist/*.map
+lib
+test

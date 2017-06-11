@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "standard",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "one-var": 0,
+    "arrow-parens": 0
+  }
+}
