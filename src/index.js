@@ -1,6 +1,6 @@
 import ColorThief from '@mariotacke/color-thief'
 /**
- * Palettify
+ * palettify
  * @param {Object} opts
  * @param {String | NodeList} opts.imageTarget
  * @param {String | NodeList} opts.hoverTarget
@@ -10,7 +10,7 @@ import ColorThief from '@mariotacke/color-thief'
  * @param {String} opts.colorIndexToUse
  * @param {String} opts.boxShadowTemplate - Provide a boxShadow template to apply. '0 2px 2px {color}, 3px 3px {colorSecondary}'
  */
-function Palettify () {
+function palettify () {
   /**
    * Extract the colors from image tag or Background-image inline style
    * @param {HTMLElement} paletteTarget - The palette target to get the colors form
@@ -231,4 +231,4 @@ function Palettify () {
   return self
 }
 
-export default Palettify
+export default palettify

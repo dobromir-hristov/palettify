@@ -8,15 +8,15 @@ const legacy = require('rollup-plugin-legacy')
 const banner = require('./banner')
 const pack = require('../package.json')
 
-function toUpper (_, c) {
-  return c ? c.toUpperCase() : ''
-}
+//function toUpper (_, c) {
+//  return c ? c.toUpperCase() : ''
+//}
 
-const classifyRE = /(?:^|[-_\/])(\w)/g
-function classify (str) {
-  return str.replace(classifyRE, toUpper)
-}
-const moduleName = classify(pack.name)
+//const classifyRE = /(?:^|[-_\/])(\w)/g
+//function classify (str) {
+//  return str.replace(classifyRE, toUpper)
+//}
+const moduleName = pack.name
 
 const entries = {
   commonjs: {

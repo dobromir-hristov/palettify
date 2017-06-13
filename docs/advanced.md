@@ -2,7 +2,7 @@
 
 You can actually set different box-shadow effects than the one provided using the `boxShadowTemplate` option.
 ```js
-const boxShadowInstance = palettify().init({
+const palettifyInstance = palettify().init({
   hoverTarget: '.hoverTarget', 
   imageTarget: '.imageTarget', 
   boxShadowTemplate: '2px 3px 10px {color}'
@@ -12,7 +12,7 @@ You have two colors that you can use, `{color}` and `{colorSecondary}`. Both col
 Settings opacity is easy using the `opacity` and `opacitySecondary` settings.
 
 ```js
-const boxShadowInstance = palettify().init({
+const palettifyInstance = palettify().init({
   hoverTarget: '.hoverTarget', 
   imageTarget: '.imageTarget', 
   boxShadowTemplate: '2px 3px 10px {color}, 5px 2px 10px 5px {colorSecondary}',
@@ -33,7 +33,7 @@ If you want to use different events than `mouseenter` and `mouseleave` then supp
 For example settings focus and blur events:
 
 ```js
-const boxShadowInstance = palettify().init({
+const palettifyInstance = palettify().init({
   hoverTarget: '.focusTarget', // Element to attach event listener to (mouseenter bt default).
   imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
   enterEvent: 'focus',
@@ -60,7 +60,7 @@ const boxShadowInstance = palettify().init({
   To apply a new box-shadow template all you have to do is pass your own `boxShadowTemplate` option.
   
   ```js
-  const boxShadowInstance = palettify().init({
+  const palettifyInstance = palettify().init({
     hoverTarget: '.customShadowTarget', // Element to attach event listener to (mouseenter bt default).
     imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
     boxShadowTemplate: '0 2px 10px 5px {color}, 0 5px 15px 10px {colorSecondary}'
@@ -84,14 +84,14 @@ const boxShadowInstance = palettify().init({
   
 <script>
   imagesLoaded('.imageTarget', function () {
-    window.boxshadow = palettify().init({
+    window.palettify = palettify().init({
         hoverTarget: '.focusTarget',
         imageTarget: '.imageTarget',
         enterEvent: 'mousedown',
         leaveEvent: 'mouseup'
       })
       
-    window.boxshadow = palettify().init({
+    window.palettify = palettify().init({
         hoverTarget: '.customShadowTarget',
         imageTarget: '.imageTarget',
         opacity: 0.5,
