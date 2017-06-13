@@ -1,23 +1,23 @@
 # Install
-boxShadowPalette can be used both in the browser via cdn or script tag and as a package in a build system.
+palettify can be used both in the browser via cdn or script tag and as a package in a build system.
 
 ## Using a module bundler like Webpack/Rollup/Browserify etc
 
 ### NPM
 ```bash
-$ npm install box-shadow-palette
+$ npm install palettify
 ```
 ### Yarn
 ```bash
-$ yarn add box-shadow-palette
+$ yarn add palettify
 ```
 
-After you have installed the package import `box-shadow-palette` and create a new instance:
+After you have installed the package import `palettify` and create a new instance:
 
 ```js
-import boxShadowPalette from 'box-shadow-palette'
+import palettify from 'palettify'
 
-const boxShadowInstance = boxShadowPalette().init({
+const palettifyInstance = palettify().init({
   hoverTarget: '.hoverTarget', // Element to attach event listener to (mouseenter bt default).
   imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
   attachBoxShadowTo: '.imageTarget' // Element to attach the boxShadow to. (optional) Defaults to imageTarget.
@@ -30,20 +30,20 @@ If you are not using a module bundler and want to use it directly in the browser
 
 ### Direct Download / CDN
 
-https://unpkg.com/box-shadow-palette/dist/box-shadow-palette
+https://unpkg.com/palettify/dist/palettify
 
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/box-shadow-palette@0.0.0/dist/box-shadow-palette.js........
+[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/palettify@0.0.0/dist/palettify.js........
 
 ```html
-<script src="https://unpkg.com/box-shadow-palette/dist/img-palette.js"></script>
-<script src="https://unpkg.com/img-palette/dist/box-shadow-palette.js"></script>
+<script src="https://unpkg.com/palettify/dist/img-palette.js"></script>
+<script src="https://unpkg.com/img-palette/dist/palettify.js"></script>
 ```
 
-or download it from [github](https://github.com/dobromir-hristov/box-shadow-palette.git)
+or download it from [github](https://github.com/dobromir-hristov/palettify.git)
 
 ```html
 <script>
-  var boxShadowInstance = BoxShadowPalette().init({
+  var palettifyInstance = palettify().init({
       hoverTarget: '.hoverTarget', 
       imageTarget: '.imageTarget', 
       attachBoxShadowTo: '.imageTarget'
@@ -55,7 +55,7 @@ Because we are working with images, its good practise to make sure they are all 
 One good way is to use the [imagesLoaded](https://imagesloaded.desandro.com) library. Add it in your page (via cdn or bundle) and init after is done.
 ```js
 imagesLoaded('.imageTarget', function() {
-  window.boxShadowInstance = BoxShadowPalette().init({
+  window.palettifyInstance = palettify().init({
     hoverTarget: '.hoverTarget',
     imageTarget: '.imageTarget'
   })

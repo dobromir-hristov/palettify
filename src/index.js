@@ -1,6 +1,6 @@
 import ColorThief from '@mariotacke/color-thief'
 /**
- * boxShadowPalette
+ * Palettify
  * @param {Object} opts
  * @param {String | NodeList} opts.imageTarget
  * @param {String | NodeList} opts.hoverTarget
@@ -10,7 +10,7 @@ import ColorThief from '@mariotacke/color-thief'
  * @param {String} opts.colorIndexToUse
  * @param {String} opts.boxShadowTemplate - Provide a boxShadow template to apply. '0 2px 2px {color}, 3px 3px {colorSecondary}'
  */
-function boxShadowPalette () {
+function Palettify () {
   /**
    * Extract the colors from image tag or Background-image inline style
    * @param {HTMLElement} paletteTarget - The palette target to get the colors form
@@ -174,11 +174,11 @@ function boxShadowPalette () {
         })
       },
       /**
-       * Initializes the whole boxShadowPalette.
-       * Gets fired when creating boxShadowPalette in the first place
+       * Initializes the whole Palettify.
+       * Gets fired when creating Palettify in the first place
        */
       init (opts) {
-        if (isInitialized) throw new Error('boxShadowPalette is already initialized')
+        if (isInitialized) throw new Error('Palettify is already initialized')
 
         self.options = Object.assign({}, __defaults, opts)
 
@@ -193,7 +193,7 @@ function boxShadowPalette () {
         return self
       },
       /**
-       * Destroys the boxShadowPalette and cleans up after it self.
+       * Destroys the Palettify and cleans up after it self.
        */
       destroy () {
         self.detachEventListeners()
@@ -231,4 +231,4 @@ function boxShadowPalette () {
   return self
 }
 
-export default boxShadowPalette
+export default Palettify

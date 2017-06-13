@@ -2,7 +2,7 @@
 
 > We will be using [ES2015](https://github.com/lukehoban/es6features) in the code samples in the guide.
 
-After initializing, `boxShadowPalette` returns an instance containing handy methods to modify the plugin after it has been setup.
+After initializing, `palettify` returns an instance containing handy methods to modify the plugin after it has been setup.
 Almost everything is configurable. From the color used, to the type of box shadow that is applied to the element. You could even add extra styles by extending some methods.
 
 ### Markup
@@ -84,10 +84,10 @@ You can also use the plugin with background images too. Only requirement is the 
 | removeBoxShadowFromCollection | Removes the box shadow template from the data attribute of each image. |
 | attachEventListeners | Attaches the event listeners to each `hoverTarget` element. |
 | detachEventListeners | Detaches the event listeners from each `hoverTarget` element. |
-| init | Initializes the whole plugin. Can be called only after `boxShadowPalette` is destroyed. |
+| init | Initializes the whole plugin. Can be called only after `palettify` is destroyed. |
 | destroy(removeDataAttr = true) | Destroys the whole plugin and cleans after it self. `removeDataAttr <Boolean> = true` - Should it remove the `boxShadow` data attribute|
 | reInit(removeDataAttr = true) | Destroys and Initializes the plugin. |
-| setOptions (options, reInit = true) | Allows setting an option after the plugin is initialized. Requires an options object. `reInit <Boolean> = true`  Tells the `boxShadowPalette` to reinitialize. |
+| setOptions (options, reInit = true) | Allows setting an option after the plugin is initialized. Requires an options object. `reInit <Boolean> = true`  Tells the `palettify` to reinitialize. |
 | isInitialized () | Check if plugin is initialized. Returns `true/false`. |
 
 ## Attributes
@@ -99,7 +99,7 @@ You can also use the plugin with background images too. Only requirement is the 
 | leaveHandler | Mouse leave event handler. Removes the box shadow from to the `attachBoxShadowTo` element. |
 
 <script>
-window.boxshadow = BoxShadowPalette().init({
+window.boxshadow = palettify().init({
     hoverTarget: '.hoverTarget',
     imageTarget: '.imageTarget'
   })

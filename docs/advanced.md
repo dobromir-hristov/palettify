@@ -2,7 +2,7 @@
 
 You can actually set different box-shadow effects than the one provided using the `boxShadowTemplate` option.
 ```js
-const boxShadowInstance = boxShadowPalette().init({
+const boxShadowInstance = palettify().init({
   hoverTarget: '.hoverTarget', 
   imageTarget: '.imageTarget', 
   boxShadowTemplate: '2px 3px 10px {color}'
@@ -12,7 +12,7 @@ You have two colors that you can use, `{color}` and `{colorSecondary}`. Both col
 Settings opacity is easy using the `opacity` and `opacitySecondary` settings.
 
 ```js
-const boxShadowInstance = boxShadowPalette().init({
+const boxShadowInstance = palettify().init({
   hoverTarget: '.hoverTarget', 
   imageTarget: '.imageTarget', 
   boxShadowTemplate: '2px 3px 10px {color}, 5px 2px 10px 5px {colorSecondary}',
@@ -23,9 +23,9 @@ const boxShadowInstance = boxShadowPalette().init({
 
 ## Setting which color to use
 
-Under the hood **boxShadowPalette** uses [Color Thief](http://lokeshdhakar.com/projects/color-thief/) which is a simple library to extract a color palette from an image.
+Under the hood **palettify** uses [Color Thief](http://lokeshdhakar.com/projects/color-thief/) which is a simple library to extract a color palette from an image.
 
-**Color Thief** returns 8 colors from which to choose. **boxShadowPalette** is set to use the first one, but it is overridable with the `colorIndexToUse` option.
+**Color Thief** returns 8 colors from which to choose. **palettify** is set to use the first one, but it is overridable with the `colorIndexToUse` option.
 
 ## Setting Enter and Leave events
 
@@ -33,7 +33,7 @@ If you want to use different events than `mouseenter` and `mouseleave` then supp
 For example settings focus and blur events:
 
 ```js
-const boxShadowInstance = boxShadowPalette().init({
+const boxShadowInstance = palettify().init({
   hoverTarget: '.focusTarget', // Element to attach event listener to (mouseenter bt default).
   imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
   enterEvent: 'focus',
@@ -60,7 +60,7 @@ const boxShadowInstance = boxShadowPalette().init({
   To apply a new box-shadow template all you have to do is pass your own `boxShadowTemplate` option.
   
   ```js
-  const boxShadowInstance = boxShadowPalette().init({
+  const boxShadowInstance = palettify().init({
     hoverTarget: '.customShadowTarget', // Element to attach event listener to (mouseenter bt default).
     imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
     boxShadowTemplate: '0 2px 10px 5px {color}, 0 5px 15px 10px {colorSecondary}'
@@ -84,14 +84,14 @@ const boxShadowInstance = boxShadowPalette().init({
   
 <script>
   imagesLoaded('.imageTarget', function () {
-    window.boxshadow = BoxShadowPalette().init({
+    window.boxshadow = palettify().init({
         hoverTarget: '.focusTarget',
         imageTarget: '.imageTarget',
         enterEvent: 'mousedown',
         leaveEvent: 'mouseup'
       })
       
-    window.boxshadow = BoxShadowPalette().init({
+    window.boxshadow = palettify().init({
         hoverTarget: '.customShadowTarget',
         imageTarget: '.imageTarget',
         opacity: 0.5,

@@ -5,8 +5,8 @@ Got a question?
 ===============
 The issue list of this repo is **exclusively** for bug reports and feature requests. For simple questions, please use the following resources:
 
-- Read the docs: https://github.com/dobromir-hristov/box-shadow-palette/blob/master/README.md
-- Look for/ask questions on stack overflow: https://stackoverflow.com/questions/ask?tags=box-shadow-palette
+- Read the docs: https://github.com/dobromir-hristov/palettify/blob/master/README.md
+- Look for/ask questions on stack overflow: https://stackoverflow.com/questions/ask?tags=palettify
 
 Reporting a bug?
 ================
@@ -26,7 +26,7 @@ Remove the template from below and provide thoughtful commentary *and code sampl
 -->
 
 <!-- BUG REPORT TEMPLATE -->
-### box-shadow-palette version
+### palettify version
 x.y.z
 
 ### Reproduction Link

@@ -5,8 +5,8 @@ const pack = require('../package.json')
 const installation = fs
   .readFileSync('./docs/installation.md', 'utf-8')
   .replace(
-    /https:\/\/unpkg\.com\/box-shadow-palette@[\d.]+.[\d]+\/dist\/box-shadow-palette\.js/,
-    'https://unpkg.com/box-shadow-palette@' + pack.version + '/dist/box-shadow-palette.js.'
+    /https:\/\/unpkg\.com\/palettify@[\d.]+.[\d]+\/dist\/palettify\.js/,
+    'https://unpkg.com/palettify@' + pack.version + '/dist/palettify.js.'
   )
 fs.writeFileSync('./docs/installation.md', installation)
 

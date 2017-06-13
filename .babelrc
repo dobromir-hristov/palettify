@@ -1,6 +1,6 @@
 {
   "presets": ["es2015"],
-  "plugins": ["babel-plugin-espower"],
+  "plugins": ["babel-plugin-espower", "add-module-exports"],
   "env": {
     "test": {
       "presets": ["power-assert"]

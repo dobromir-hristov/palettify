@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+<div class="wrapper">
+  <h2>
+    Attach hover effect to image.
+  </h2>
+  <ul class="no-style">
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+        <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+        <img class="imageTarget" width="400" height="200" src="images/1.jpg" alt="abstract1">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+        <img class="imageTarget" width="400" height="200" src="images/2.jpg" alt="abstract2">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+        <img class="imageTarget" width="400" height="200" src="images/3.jpg" alt="abstract3">
+      </a>
+    </li>
+  </ul>
+</div>
+
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var palettify = Palettify().init({
+      hoverTarget: '.hoverTarget',
+      imageTarget: '.imageTarget'
+    })
+  }, false)
+</script>
+</body>
+</html>

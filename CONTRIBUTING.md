@@ -1,4 +1,4 @@
-# box-shadow-palette Contributing Guide
+# Palettify Contributing Guide
 
 - [Issue Reporting Guidelines](#issue-reporting-guidelines)
 - [Pull Request Guidelines](#pull-request-guidelines)
@@ -43,12 +43,12 @@
   - Add appropriate test coverage if applicable.
 
 ### Work Step Example
-- Fork the repository from [dobromir-hristov/box-shadow-palette](https://github.com/dobromir-hristov/box-shadow-palette) !
+- Fork the repository from [dobromir-hristov/palettify](https://github.com/dobromir-hristov/palettify) !
 - Create your topic branch from `master`: `git branch my-new-topic origin/master`
 - Add codes and pass tests !
 - Commit your changes: `git commit -am 'Add some topic'`
 - Push to the branch: `git push origin my-new-topic`
-- Submit a pull request to `master` branch of `dobromir-hristov/box-shadow-palette` repository !
+- Submit a pull request to `master` branch of `dobromir-hristov/palettify` repository !
 
 ## Development Setup
 

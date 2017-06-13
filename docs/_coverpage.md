@@ -1,6 +1,6 @@
 ![logo](images/logo.png)
 
-# boxShadowPalette <small>0.0.0</small>
+# palettify <small>0.0.0</small>
 
 > An eye catching image effect plugin
 
