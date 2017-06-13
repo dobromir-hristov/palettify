@@ -3,8 +3,9 @@
 
 
 [![npm](https://img.shields.io/npm/v/palettify.svg)](https://www.npmjs.com/package/palettify)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-Configurable JavaScript plugin to extract image primary color and apply beautiful effects to it.
+Configurable JavaScript plugin to extract image primary colors and apply cool effects to it.
 
 
 ## :book: Documentation
