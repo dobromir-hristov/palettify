@@ -4,7 +4,7 @@
 
 > An eye catching image effect plugin
 
-- Small configurable library that extracts the color palette from an image and applies beautiful effects to it.
+- Configurable plugin to extract image primary colors and apply cool effects to it.
 - Extendable and easily configurable
 
 [GitHub](https://github.com/QingWei-Li/docsify/)
