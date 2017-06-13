@@ -1,6 +1,7 @@
 # Intro
 
 [![npm](https://img.shields.io/npm/v/palettify.svg)](https://www.npmjs.com/package/palettify)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 **Palettify** is a small library with **ZERO** dependencies that lets you add really cool effects to your images.
 
