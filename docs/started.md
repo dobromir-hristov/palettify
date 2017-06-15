@@ -99,8 +99,10 @@ You can also use the plugin with background images too. Only requirement is the 
 | leaveHandler | Mouse leave event handler. Removes the box shadow from to the `attachBoxShadowTo` element. |
 
 <script>
-window.boxshadow = palettify().init({
+imagesLoaded('.imageTarget', function () {
+  window.boxshadow = palettify().init({
     hoverTarget: '.hoverTarget',
     imageTarget: '.imageTarget'
   })
+})
 </script>
