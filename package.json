@@ -25,6 +25,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^2.3.0",
+    "fs-extra": "^3.0.1",
     "gitbook-cli": "^2.3.0",
     "html-webpack-plugin": "^2.28.0",
     "img-palette": "^0.3.2",
@@ -95,6 +96,7 @@
     "lint": "eslint src config"
   },
   "dependencies": {
-    "config-chain": "^1.1.11"
+    "config-chain": "^1.1.11",
+    "jsonfile": "^3.0.0"
   }
 }

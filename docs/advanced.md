@@ -43,16 +43,16 @@ const palettifyInstance = palettify().init({
 
   <div class="image-list">
     <div class="hoverTarget focusTarget">
-      <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
+      <img class="imageTarget" width="400" height="200" src="images/0_thumb.jpg" alt="abstract0">
     </div>
     <div class="hoverTarget focusTarget">
-      <img class="imageTarget" width="400" height="200" src="images/1.jpg" alt="abstract1">
+      <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
     </div>
     <div class="hoverTarget focusTarget">
-      <img class="imageTarget" width="400" height="200" src="images/2.jpg" alt="abstract2">
+      <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
     </div>
     <div class="hoverTarget focusTarget">
-      <img class="imageTarget" width="400" height="200" src="images/3.jpg" alt="abstract3">
+      <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
     </div>
   </div>  
   
@@ -69,29 +69,29 @@ const palettifyInstance = palettify().init({
   
    <div class="image-list">
       <div class="hoverTarget customShadowTarget">
-        <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
+        <img class="imageTarget" width="400" height="200" src="images/0_thumb.jpg" alt="abstract0">
       </div>
       <div class="hoverTarget customShadowTarget">
-        <img class="imageTarget" width="400" height="200" src="images/1.jpg" alt="abstract1">
+        <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
       </div>
       <div class="hoverTarget customShadowTarget">
-        <img class="imageTarget" width="400" height="200" src="images/2.jpg" alt="abstract2">
+        <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
       </div>
       <div class="hoverTarget customShadowTarget">
-        <img class="imageTarget" width="400" height="200" src="images/3.jpg" alt="abstract3">
+        <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
       </div>
     </div>  
   
 <script>
   imagesLoaded('.imageTarget', function () {
-    window.palettify = palettify().init({
+    window.palettifyInstance = palettify().init({
         hoverTarget: '.focusTarget',
         imageTarget: '.imageTarget',
-        enterEvent: 'mousedown',
-        leaveEvent: 'mouseup'
+        enterEvent: ['mousedown', 'touchstart'],
+        leaveEvent: ['mouseup', 'touchend']
       })
       
-    window.palettify = palettify().init({
+    window.palettifyInstance2 = palettify().init({
         hoverTarget: '.customShadowTarget',
         imageTarget: '.imageTarget',
         opacity: 0.5,

@@ -32,7 +32,7 @@ If you are not using a module bundler and want to use it directly in the browser
 
 https://unpkg.com/palettify/dist/palettify
 
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/palettify@0.0.0/dist/palettify.js...........
+[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/palettify@0.0.0/dist/palettify.js....................
 
 ```html
 <script src="https://unpkg.com/palettify/dist/img-palette.js"></script>

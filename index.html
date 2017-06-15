@@ -39,7 +39,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     var palettifyInstance = palettify().init({
       hoverTarget: '.hoverTarget',
-      imageTarget: '.imageTarget'
+      imageTarget: '.imageTarget',
+      enterEvent: ['mousedown', 'touchstart'],
+      leaveEvent: ['mouseup', 'touchend']
     })
   }, false)
 </script>

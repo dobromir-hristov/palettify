@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const readFile = fs.readFile
 const writeFile = fs.writeFile
 const relative = require('path').relative
@@ -16,6 +16,8 @@ function build (entries) {
       built++
       if (built < total) {
         next()
+      } else {
+        finished()
       }
     }).catch(logError)
   }
@@ -28,15 +30,15 @@ function buildEntry (config) {
     const code = bundle.generate(config).code
     if (isProd) {
       var minified = (config.banner ? config.banner + '\n' : '') + uglify.minify(code, {
-        fromString: true,
-        output: {
-          screw_ie8: true,
-          ascii_only: true
-        },
-        compress: {
-          pure_funcs: ['makeMap']
-        }
-      }).code
+          fromString: true,
+          output: {
+            screw_ie8: true,
+            ascii_only: true
+          },
+          compress: {
+            pure_funcs: ['makeMap']
+          }
+        }).code
       return write(config.dest, minified).then(zip(config.dest))
     } else {
       return write(config.dest, code)
@@ -78,4 +80,10 @@ function logError (e) {
 
 function blue (str) {
   return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m'
+}
+
+function finished () {
+  fs.copy(relative(process.cwd(), 'dist/palettify.min.js'), relative(process.cwd(), 'docs/scripts/palettify.min.js')).then(() => {
+    console.log('palettify.js moved')
+  }).catch(err => console.error(err))
 }

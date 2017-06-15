@@ -174,8 +174,17 @@ function palettify () {
         self.elements.forEach(function (obj) {
           obj.enterHandler = self.enterHandler(obj);
           obj.leaveHandler = self.leaveHandler(obj);
-          obj.hoverTarget.addEventListener(enterEvent, obj.enterHandler, false);
-          obj.hoverTarget.addEventListener(leaveEvent, obj.leaveHandler, false);
+          if (Array.isArray(enterEvent) && Array.isArray(leaveEvent)) {
+            enterEvent.forEach(function (event) {
+              obj.hoverTarget.addEventListener(event, obj.enterHandler, false);
+            });
+            leaveEvent.forEach(function (event) {
+              obj.hoverTarget.addEventListener(event, obj.leaveHandler, false);
+            });
+          } else {
+            obj.hoverTarget.addEventListener(enterEvent, obj.enterHandler, false);
+            obj.hoverTarget.addEventListener(leaveEvent, obj.leaveHandler, false);
+          }
         });
       },
       /**
@@ -186,8 +195,17 @@ function palettify () {
         var enterEvent = ref.enterEvent;
         var leaveEvent = ref.leaveEvent;
         self.elements.forEach(function (obj) {
-          obj.hoverTarget.removeEventListener(enterEvent, obj.enterHandler, false);
-          obj.hoverTarget.removeEventListener(leaveEvent, obj.leaveHandler, false);
+          if (Array.isArray(enterEvent) && Array.isArray(leaveEvent)) {
+            enterEvent.forEach(function (event) {
+              obj.hoverTarget.removeEventListener(event, obj.enterHandler, false);
+            });
+            leaveEvent.forEach(function (event) {
+              obj.hoverTarget.removeEventListener(event, obj.leaveHandler, false);
+            });
+          } else {
+            obj.hoverTarget.removeEventListener(enterEvent, obj.enterHandler, false);
+            obj.hoverTarget.removeEventListener(leaveEvent, obj.leaveHandler, false);
+          }
         });
       },
       /**
