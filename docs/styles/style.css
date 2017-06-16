@@ -36,6 +36,37 @@
   z-index: 1;
 }
 
+.sidebar-toggle {
+  top: 0;
+  bottom: auto;
+}
+
+.sidebar-toggle, body.close .sidebar-toggle span {
+  background: #42b983;
+}
+
+.sidebar-toggle span {
+  background: #ffffff;
+  transition: .3s;
+}
+
+body.close .sidebar-toggle {
+  transition: none;
+}
+
+body.close .sidebar-toggle span:first-of-type {
+  transform: translate(0px, 4px) rotateZ(45deg);
+}
+
+body.close .sidebar-toggle span:nth-of-type(2) {
+  transform: translate(0px, -2px) rotateZ(-45deg);
+}
+
+body.close .sidebar-toggle span:last-of-type {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
 @media screen and (max-width: 768px) {
   .hoverTarget {
     flex: 1 1 50%;
