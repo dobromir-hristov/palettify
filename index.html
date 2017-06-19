@@ -10,7 +10,7 @@
   <h2>
     Attach hover effect to image.
   </h2>
-  <ul class="no-style">
+  <ul class="no-style wrapperElement">
     <li class="hoverTarget">
       <a href="#" class="attachTo">
         <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
@@ -37,11 +37,12 @@
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var palettifyInstance = palettify().init({
+    window.palettifyInstance = palettify().init({
+      parentElement: '.wrapperElement',
       hoverTarget: '.hoverTarget',
       imageTarget: '.imageTarget',
-      enterEvent: ['mousedown', 'touchstart'],
-      leaveEvent: ['mouseup', 'touchend']
+//      enterEvent: ['mousedown', 'touchstart'],
+//      leaveEvent: ['mouseup', 'touchend']
     })
   }, false)
 </script>
