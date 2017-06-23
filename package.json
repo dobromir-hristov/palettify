@@ -88,8 +88,8 @@
   "scripts": {
     "build": "node config/build.js && npm run docs:build",
     "dev": "webpack-dev-server --inline --config config/webpack.dev.conf.js",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s -p eslint",
-    "release": "conventional-github-releaser -p eslint",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
+    "release": "conventional-github-releaser -p angular",
     "clean": "rm -rf coverage && rm -rf dist/*.js* && rm ./*.log",
     "docs": "docsify serve docs",
     "docs:build": "node config/version.js",
