@@ -13,37 +13,34 @@
   <ul class="no-style wrapperElement">
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-        <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
+        <img class="imageTarget" width="400" height="200" src="images/0_thumb.jpg" alt="abstract0">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-        <img class="imageTarget" width="400" height="200" src="images/1.jpg" alt="abstract1">
+        <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-        <img class="imageTarget" width="400" height="200" src="images/2.jpg" alt="abstract2">
+        <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-        <img class="imageTarget" width="400" height="200" src="images/3.jpg" alt="abstract3">
+        <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
       </a>
     </li>
   </ul>
 </div>
 
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    window.palettifyInstance = palettify().init({
-      parentElement: '.wrapperElement',
-      hoverTarget: '.hoverTarget',
-      imageTarget: '.imageTarget',
-//      enterEvent: ['mousedown', 'touchstart'],
-//      leaveEvent: ['mouseup', 'touchend']
-    })
+    window.palettifyInstance = window.palettify.createPalettify().init(Object.assign({}, window.palettify.styles.boxShadow, {
+      selector: '.wrapperElement',
+      eventTarget: '.hoverTarget',
+      image: '.imageTarget'
+    }))
   }, false)
 </script>
 </body>

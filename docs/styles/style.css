@@ -72,3 +72,9 @@ body.close .sidebar-toggle span:last-of-type {
     flex: 1 1 50%;
   }
 }
+
+@media screen and (min-width: 769px) {
+  .sidebar-toggle {
+    display: none;
+  }
+}

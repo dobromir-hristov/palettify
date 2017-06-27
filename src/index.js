@@ -1,152 +1,244 @@
 import ColorThief from '@mariotacke/color-thief'
+import { render } from 'micromustache'
+
 /**
- * palettify
- * @param {Object} opts
- * @param {String | NodeList} opts.imageTarget
- * @param {String | NodeList} opts.hoverTarget
- * @param {String} opts.styleTarget
- * @param {String | Number} opts.opacity
- * @param {String} opts.opacitySecondary
- * @param {String} opts.colorIndexToUse
- * @param {String} opts.boxShadowTemplate - Provide a boxShadow template to apply. '0 2px 2px {color}, 3px 3px {colorSecondary}'
+ * Creates a palettify instance
+ * @module palettify
+ * @return palettify
  */
-function palettify () {
-  let isInitialized = false
+function createPalettify () {
+  let
+    isInitialized = false,
+    __selector = null
+
+  /**
+   * @typedef {Object} paletteObj
+   * @property {HTMLElement} eventTarget
+   * @property {HTMLElement} styleTarget
+   * @property {HTMLElement} image
+   * @property {PaletteObject} palette
+   * @property {Function} enterHandler
+   * @property {Function} leaveHandler
+   */
+
+  /**
+   * @typedef {Object} PaletteObject
+   * @property {Array} original
+   * @property {Array} rgb
+   * @property {Array} rgba
+   */
 
   const
+    /**
+     * Default options to extend
+     * @typedef {Object} DefaultOptions
+     * @property {String|HTMLElement} selector - The element that holds all your images and eventTargets.
+     * @property {String} eventTarget - The event target to attach event listeners to
+     * @property {String} image - The image to sample
+     * @property {String} styleTarget - The element to apply styling to. Defaults to image
+     * @property {Array<number>} opacities - Array of opacities
+     * @property {String} activeClass - CSS class to apply on each enterEvent
+     * @property {String} readyClass - CSS class to apply when palettify is ready
+     * @property {Number} colorsToExtract - Colors to extract
+     * @property {String | Array} enterEvent - Event or Array of events to apply listeners to for each enterCallback
+     * @property {string | Array} leaveEvent - Event or Array of events to apply listeners to for each leaveCallback
+     * @property {Object} staticStyles - Object containing valid css styles to apply to styleTarget on ready
+     * @property {Object} dynamicStyles - Object containing valid css styles to apply to styleTarget on each enterEvent
+     * @property {Function} beforeEnterCallback - Callback called before the enter event
+     * @property {Function} afterEnterCallback - Callback called after the enter event
+     * @property {Function} beforeLeaveCallback - Callback called before the leave event
+     * @property {Function} afterLeaveCallback - Callback called after the enter event
+     * @property {Function} onReadyCallback - Callback called after palettify is ready.
+     */
     __defaults = {
-      parentElement: Error('Please provide parentElement'),
-      hoverTarget: Error('Please provide hoverTarget'),
-      imageTarget: Error('Please provide ImageSrc'),
+      selector: Error('Please provide а selector in your options.'),
+      eventTarget: Error('Please provide an eventTarget as a parent for your image in the options.'),
+      image: Error('Please provide an image to sample.'),
       styleTarget: null,
-      opacity: 0.2, // Deprecated
-      opacitySecondary: 0.2, // Deprecated
       opacities: [0.5, 0.5, 0.5],
-      hoverClass: 'box-shadow-attached',
-      colorIndexToUse: 0, // Deprecated
+      activeClass: 'palettify--active',
+      readyClass: 'palettify--ready',
       colorsToExtract: 3,
       enterEvent: 'mouseenter',
       leaveEvent: 'mouseleave',
-      boxShadowTemplate: '' // Deprecated
+      staticStyles: {},
+      dynamicStyles: {},
+      beforeEnterCallback: null,
+      afterEnterCallback: null,
+      beforeLeaveCallback: null,
+      afterLeaveCallback: null,
+      onReadyCallback: null
     },
+    /**
+     * @typedef {Object} palettify
+     * @type Object
+     * @property {DefaultOptions} options
+     * @property {Array} data
+     * @property {function} collectElements
+     * @property {function} extractColorsAndAttachStyles
+     * @property {function} generateEnterHandler
+     * @property {function} generateLeaveHandler
+     * @property {function} attachEventListeners
+     * @property {function} detachEventListeners
+     * @property {function} init
+     * @property {function} destroy
+     * @property {function} reInit
+     * @property {function} cleanUp
+     * @property {function} setOptions
+     * @property {function} isInitialized
+     */
     self = {
-      options: {},
-      elements: [],
       /**
-       * Gather all needed elements and push into an the `elements` array
+       * Palettify options
+       * @name palettify#options
+       * @type DefaultOptions
+       */
+      options: {},
+      /**
+       * Holds a collection of {@link paletteObj} objects.
+       * @type Array<paletteObj>
+       * @name palettify#data
+       */
+      data: [],
+      /**
+       * Gather all needed elements and push into an the {@see palettify#data}
+       * @type function
+       * @name palettify#collectElements
        */
       collectElements () {
         let
-          hoverTargetsCollection = self.options.hoverTarget,
-          parentElement = self.options.parentElement
-
-        if (typeof parentElement === 'string') {
-          parentElement = document.querySelector(parentElement)
-        }
-        if (parentElement) {
-          if (typeof hoverTargetsCollection === 'string') {
-            hoverTargetsCollection = parentElement.querySelectorAll(hoverTargetsCollection)
-          }
-          if (hoverTargetsCollection.length) {
-            [].slice.call(hoverTargetsCollection, 0).forEach((element) => {
-              const
-                image = element.querySelector(self.options.imageTarget),
-                obj = {
-                  hoverTarget: element,
-                  image
+          eventTargetsCollection = ''
+        __selector = typeof self.options.selector === 'string' ? document.querySelector(self.options.selector) : self.options.selector
+        if (__selector) {
+          eventTargetsCollection = __selector.querySelectorAll(self.options.eventTarget);
+          [].slice.call(eventTargetsCollection, 0).forEach((eventTarget) => {
+            const
+              image = eventTarget.querySelector(self.options.image),
+              styleTarget = eventTarget.querySelector(self.options.styleTarget || self.options.image),
+              // Create the main object it self.
+              obj = {
+                eventTarget,
+                styleTarget,
+                image,
+                palette: {
+                  original: [],
+                  rgb: [],
+                  rgba: []
                 }
-              self.elements.push(obj)
-            })
-          }
+              }
+            self.data.push(obj)
+          })
         }
       },
       /**
-       * Attaches boxShadow to the collection of Images
+       * Extracts colors and attaches static styles to each styleTarget {@see palettify#options.styleTarget}
+       * Adds ready class when done
+       * @function
+       * @name palettify#extractColorsAndAttachStyles
        */
       extractColorsAndAttachStyles () {
-        self.elements.forEach(obj => {
-          obj.palette = __extractColors(obj.image, self.options.colorsToExtract)
-          obj.rgbaPalette = __opacifyPalette(obj.palette, self.options.opacities)
-          __addBoxShadowToElementData(obj)
+        self.data.forEach(obj => {
+          obj.palette.original = __extractColors(obj.image, self.options.colorsToExtract)
+          obj.palette.rgb = __opacifyPalette(obj.palette.original, [])
+          obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.opacities)
+          __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette)
         })
+        __selector.classList.add(self.options.readyClass)
       },
       /**
-       * Enter event listener callback
-       * Adds the boxShadow to the target
-       * @param event
+       * Generates the enter event listener callback
+       * Attaches dynamicStyles {@see palettify#options.dynamicStyles} to styleTarget
+       * @function
+       * @param {paletteObj} obj
+       * @name palettify#generateEnterHandler
+       * @return function
        */
-      enterHandler (obj) {
+      generateEnterHandler (obj) {
         return (event) => {
-          const target = event.currentTarget.querySelector(self.options.styleTarget || self.options.imageTarget)
-          if (target) {
-            target.classList.add(self.options.hoverClass)
-            target.style.boxShadow = obj.boxShadow
+          if (obj.styleTarget) {
+            if (typeof self.options.beforeEnterCallback === 'function') self.options.beforeEnterCallback.call(obj.styleTarget, obj.palette, event, self.options)
+            obj.styleTarget.classList.add(self.options.activeClass)
+            __attachStylesToElement(obj.styleTarget, self.options.dynamicStyles, obj.palette)
+            if (typeof self.options.afterEnterCallback === 'function') self.options.afterEnterCallback.call(obj.styleTarget, obj.palette, event, self.options)
           }
         }
       },
       /**
-       * Leave Event listener callback
-       * Removes the Box shadow from the target
-       * @param event
+       * Generates the leave event listener callback
+       * Removes all dynamicStyles
+       * @function
+       * @param {paletteObj} obj
+       * @name palettify#generateLeaveHandler
+       * @return function
        */
-      leaveHandler (obj) {
+      generateLeaveHandler (obj) {
         return (event) => {
-          const target = event.currentTarget.querySelector(self.options.styleTarget || self.options.imageTarget)
+          const target = obj.styleTarget
           if (target) {
-            target.classList.remove(self.options.hoverClass)
-            target.style.boxShadow = ''
+            if (self.options.beforeLeaveCallback) self.options.beforeLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options)
+            target.classList.remove(self.options.activeClass)
+            __removeDynamicStylesFromElement(obj.styleTarget, self.options.dynamicStyles, self.options.staticStyles, obj.palette)
+            if (self.options.afterLeaveCallback) self.options.afterLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options)
           }
         }
       },
       /**
-       * Attaches Event listeners to the hoverTargets
+       * Attaches Event listeners to the eventTargets
+       * @function
+       * @name palettify#attachEventListeners
        */
       attachEventListeners () {
-        const {enterEvent, leaveEvent} = self.options
-        self.elements.forEach(obj => {
-          obj.enterHandler = self.enterHandler(obj)
-          obj.leaveHandler = self.leaveHandler(obj)
-          if (Array.isArray(enterEvent) && Array.isArray(leaveEvent)) {
-            enterEvent.forEach((event) => {
-              obj.hoverTarget.addEventListener(event, obj.enterHandler, false)
-            })
-            leaveEvent.forEach((event) => {
-              obj.hoverTarget.addEventListener(event, obj.leaveHandler, false)
-            })
-          } else {
-            obj.hoverTarget.addEventListener(enterEvent, obj.enterHandler, false)
-            obj.hoverTarget.addEventListener(leaveEvent, obj.leaveHandler, false)
-          }
+        let {enterEvent, leaveEvent} = self.options
+
+        enterEvent = !Array.isArray(enterEvent) ? [enterEvent] : enterEvent
+        leaveEvent = !Array.isArray(leaveEvent) ? [leaveEvent] : leaveEvent
+
+        self.data.forEach(obj => {
+          obj.enterHandler = self.generateEnterHandler(obj)
+          obj.leaveHandler = self.generateLeaveHandler(obj)
+
+          enterEvent.forEach((event) => {
+            obj.eventTarget.addEventListener(event, obj.enterHandler, false)
+          })
+          leaveEvent.forEach((event) => {
+            obj.eventTarget.addEventListener(event, obj.leaveHandler, false)
+          })
+
         })
       },
       /**
-       * Detaches event listeners from hoverTargets
+       * Detaches event listeners from eventTargets
+       * @function
+       * @name palettify#detachEventListeners
        */
       detachEventListeners () {
-        const
+        let
           {enterEvent, leaveEvent} = self.options
-        self.elements.forEach(obj => {
-          if (Array.isArray(enterEvent) && Array.isArray(leaveEvent)) {
-            enterEvent.forEach((event) => {
-              obj.hoverTarget.removeEventListener(event, obj.enterHandler, false)
-            })
-            leaveEvent.forEach((event) => {
-              obj.hoverTarget.removeEventListener(event, obj.leaveHandler, false)
-            })
-          } else {
-            obj.hoverTarget.removeEventListener(enterEvent, obj.enterHandler, false)
-            obj.hoverTarget.removeEventListener(leaveEvent, obj.leaveHandler, false)
-          }
+
+        enterEvent = !Array.isArray(enterEvent) ? [enterEvent] : enterEvent
+        leaveEvent = !Array.isArray(leaveEvent) ? [leaveEvent] : leaveEvent
+
+        self.data.forEach(obj => {
+          enterEvent.forEach((event) => {
+            obj.eventTarget.removeEventListener(event, obj.enterHandler, false)
+          })
+          leaveEvent.forEach((event) => {
+            obj.eventTarget.removeEventListener(event, obj.leaveHandler, false)
+          })
         })
       },
       /**
        * Initializes the whole Palettify.
        * Gets fired when creating Palettify in the first place
+       * @constructs
+       * @param {DefaultOptions} opts - Options to pass to palettify
+       * @name palettify#init
+       * @return palettify
        */
       init (opts) {
         if (isInitialized) throw new Error('Palettify is already initialized')
 
-        self.options = Object.assign({}, __defaults, opts)
+        __mergeOptions(opts)
 
         self.collectElements()
         // Collect colors and attach boxShadow's to all images
@@ -156,30 +248,52 @@ function palettify () {
         // Set isInitialized to true so we cant initialize again until destroyed
         isInitialized = true
 
+        typeof self.options.onReadyCallback === 'function' && self.options.onReadyCallback.call(self, self)
+
         return self
       },
       /**
        * Destroys the Palettify and cleans up after it self.
+       * @function
+       * @name palettify#destroy
+       * @param {Boolean} [cleanUp = true]
        */
-      destroy () {
+      destroy (cleanUp = true) {
         self.detachEventListeners()
-        self.elements = []
+        cleanUp && self.cleanUp()
+        self.data = []
         isInitialized = false
       },
       /**
        * Reinitialize the plugin.
        * Destroy and then reinitialize it.
+       * @function
+       * @name palettify#reInit
        */
       reInit () {
         self.destroy()
         self.init(self.options)
       },
       /**
+       * Cleans up the dom after the plugin is destroyed. Removes all staticStyles
+       * @function
+       * @name palettify#cleanUp
+       */
+      cleanUp () {
+        self.data.forEach(obj => {
+          for (let prop in self.options.staticStyles) {
+            if (self.options.staticStyles.hasOwnProperty(prop)) {
+              obj.styleTarget.style[prop] = ''
+            }
+          }
+        })
+      },
+      /**
        * Set new options. Merges then with the old ones.
-       * Takes an options object and a reInit boolean.
-       * reInit defaults to True
        * @param {Object} options - New options to override the old ones
-       * @param {Boolean} reInit - Should the plugin reInit? Defaults to true
+       * @param {Boolean} [reInit = true] - Should the plugin reInit? Defaults to true
+       * @function
+       * @name palettify#setOptions
        */
       setOptions (options, reInit = true) {
         self.options = Object.assign({}, self.options, options)
@@ -187,6 +301,7 @@ function palettify () {
       },
       /**
        * Is the plugin initialized
+       * @name palettify#isInitialized
        * @return {boolean}
        */
       isInitialized () {
@@ -215,7 +330,7 @@ function palettify () {
   }
 
   /**
-   * Transform all colors in the palette to RGBA colors using the supplied opacities in option.opacities
+   * Transform all colors in the palette to RGBA colors using the supplied opacities in {@see palettify#options.opacities}
    * @param {Array} palette - Color palette of the current obj
    * @param {Array} opacities - Array of opacities for each color
    * @private
@@ -231,7 +346,7 @@ function palettify () {
   }
 
   /**
-   * Returns the rgba color from current color with applied opacity
+   * Returns the rgba color with applied opacity
    * @param {Array} color
    * @param {String | Number} opacity
    * @return {string}
@@ -246,35 +361,54 @@ function palettify () {
   }
 
   /**
-   * Adds boxShadow to an element.
-   * Required the color and the element to attach to
-   * @param {Array} colors - Array of RGB Colors
-   * @param {Object} obj - Object that holds the hoverTarget and image
-   * @param {HTMLElement} obj.hoverTarget - Reference to the hoverTarget dom element
-   * @param {HTMLElement} obj.image - Reference to the image dom element
-   * @param {Array} obj.colors - Array of RGB Colors
-   * @param {String} obj.rgbaColor - rgba transformed color with opacity in mind.
-   * @param {String} obj.rgbaColorSecondary - rgba transformed color with secondary opacity in mind.
+   * Adds styles to an element.
+   * @param target
+   * @param {Object} styles
+   * @param palette
    * @private
    */
-  function __addBoxShadowToElementData (obj) {
-    const
-      {opacity, opacitySecondary, boxShadowTemplate} = self.options,
-      color = obj.palette[self.options.colorIndexToUse],
-      rgbaColor = __getRgbaColor(color, opacity),
-      rgbaColorSecondary = __getRgbaColor(color, opacitySecondary)
-    let boxShadow
-    if (!boxShadowTemplate) {
-      boxShadow = `0 2px 2px ${rgbaColor}, 0 4px 4px ${rgbaColor}, 0 8px 8px ${rgbaColor}, 0 16px 16px ${rgbaColor}, 0 32px 32px ${rgbaColorSecondary}, 0 64px 64px ${rgbaColorSecondary}`
-    } else {
-      boxShadow = boxShadowTemplate.replace('{color}', rgbaColor).replace('{colorSecondary}', rgbaColorSecondary)
+  function __attachStylesToElement (target, styles, palette) {
+    for (const prop in styles) {
+      if (styles.hasOwnProperty(prop)) {
+        target.style[prop] = render(styles[prop], palette)
+      }
     }
-    obj.rgbaColor = rgbaColor
-    obj.rgbaColorSecondary = rgbaColorSecondary
-    obj.boxShadow = boxShadow
+  }
+
+  /**
+   * Removes all dynamic styles from an element.
+   * If the staticStyle has the same prop as dynamicStyle, we set the prop to be the static style.
+   * @param {HTMLElement} target - The Target to remove styles from
+   * @param {Object} dynamicStyles - Dynamic styles to apply
+   * @param {Object} staticStyles - Static styles to apply
+   * @param {Array} palette - Array of available palettes
+   * @private
+   */
+  function __removeDynamicStylesFromElement (target, dynamicStyles, staticStyles, palette) {
+    for (const prop in dynamicStyles) {
+      if (dynamicStyles.hasOwnProperty(prop) && !staticStyles.hasOwnProperty(prop)) {
+        target.style[prop] = ''
+      } else if (staticStyles.hasOwnProperty(prop)) {
+        target.style[prop] = render(staticStyles[prop], palette)
+      }
+    }
+  }
+
+  /**
+   * Merges the options and throws errors where necessary
+   * @param {DefaultOptions} options
+   * @private
+   */
+  function __mergeOptions (options) {
+    self.options = Object.assign({}, __defaults, options)
+    Object.keys(self.options).forEach(opt => {
+      if (self.options[opt] instanceof Error) {
+        throw self.options[opt]
+      }
+    })
   }
 
   return self
 }
 
-export default palettify
+export default createPalettify

@@ -83,7 +83,11 @@ function blue (str) {
 }
 
 function finished () {
-  fs.copy(relative(process.cwd(), 'dist/palettify.min.js'), relative(process.cwd(), 'docs/scripts/palettify.min.js')).then(() => {
-    console.log('palettify.js moved')
-  }).catch(err => console.error(err))
+  try {
+    fs.copySync(relative(process.cwd(), 'dist/palettify.min.js'), relative(process.cwd(), 'docs/scripts/palettify.min.js'))
+    fs.copySync(relative(process.cwd(), 'dist/palettify.styles.min.js'), relative(process.cwd(), 'docs/scripts/palettify.styles.min.js'))
+  } catch (err) {
+    console.error(err)
+  }
+  console.log('palettify.js moved')
 }

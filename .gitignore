@@ -13,4 +13,3 @@ npm-debug.log*
 /config/karma.sauce.conf.js
 /config/karma.base.conf.js
 /config/karma.cover.conf.js
-/config/webpack.dev.conf.js

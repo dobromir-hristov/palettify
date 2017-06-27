@@ -74,6 +74,14 @@ const entries = {
     globals: {
       '@mariotacke/color-thief': 'colorThief'
     }
+  },
+  styles: {
+    entry: 'src/styles.js',
+    dest: `dist/${pack.name}.styles.min.js`,
+    format: 'umd',
+    env: 'production',
+    moduleName: 'palettifyStyles',
+    banner
   }
 }
 
@@ -83,10 +91,10 @@ function genConfig (opts) {
     dest: opts.dest,
     format: opts.format,
     banner: opts.banner,
-    moduleName,
+    moduleName: opts.moduleName,
     plugins: [
       buble({
-        transforms: { dangerousForOf: true }
+        transforms: {dangerousForOf: true}
       }),
       resolve({
         jsnext: true,
@@ -99,7 +107,7 @@ function genConfig (opts) {
     globals: opts.globals
   }
 
-  const replacePluginOptions = { '__VERSION__': pack.version }
+  const replacePluginOptions = {'__VERSION__': pack.version}
   if (opts.env) {
     replacePluginOptions['process.env.NODE_ENV'] = JSON.stringify(opts.env)
   }
