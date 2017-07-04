@@ -9,7 +9,7 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/',
     library: ['palettify', '[name]'],
-    libraryTarget: 'umd',
+    libraryTarget: 'var',
     umdNamedDefine: true
   },
   devServer: {

@@ -284,14 +284,19 @@ function createPalettify () {
        * @name palettify#extractColorsAndAttachStyles
        */
       extractColorsAndAttachStyles: function extractColorsAndAttachStyles () {
-        self.data.forEach(function (obj) {
-          obj.palette.original = __extractColors(obj.image, self.options.colorsToExtract);
-          obj.palette.rgb = __opacifyPalette(obj.palette.original, []);
-          obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.opacities);
-          obj.palette.contrastColors = __getInvertedColors(obj.palette.original, self.options.contrastColors);
-          __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette, self.options.staticCallback);
+        var promises = [];
+        self.data.forEach(function (obj, index) {
+          promises[index] = __extractColors(obj.image, self.options.colorsToExtract).then(function (colors) {
+            obj.palette.original = colors;
+            obj.palette.rgb = __opacifyPalette(obj.palette.original, []);
+            obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.opacities);
+            obj.palette.contrastColors = __getInvertedColors(obj.palette.original, self.options.contrastColors);
+            __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette, self.options.staticCallback);
+          });
         });
-        __selector.classList.add(self.options.readyClass);
+        Promise.all(promises).then(function (values) {
+          __selector.classList.add(self.options.readyClass);
+        });
       },
       /**
        * Generates the enter event listener callback
@@ -468,20 +473,20 @@ function createPalettify () {
    * Extract the colors from image tag or Background-image inline style
    * @param {HTMLElement} paletteTarget - The palette target to get the colors form
    * @param {Number} colorsToExtract - Number of colors to extract
-   * @return {Array} Returns an object with RGB colors
+   * @return {Promise} Returns promise when image is loaded with an array of RGB colors
    * @private
    */
   function __extractColors (paletteTarget, colorsToExtract) {
-    var image = paletteTarget;
-    if (!paletteTarget) { throw Error('Target is not an element', paletteTarget) }
-    // Our sample is not a img tag so we try to get its background image.
-    if (paletteTarget.tagName !== 'IMG') {
-      if (!paletteTarget.style.backgroundImage) { throw Error('Tag provided is not an image and does not have a background-image style attached to it.') }
-      // Its not an IMG tag so we try to crate one under the hood.
-      image = new Image(paletteTarget.offsetWidth, paletteTarget.offsetHeight);
-      image.src = paletteTarget.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/gi, '');
-    }
-    return new colorThief_min().getPalette(image, colorsToExtract)
+    var image = __sanitizeImage(paletteTarget);
+    return new Promise(function (resolve) {
+      if (!isImageLoaded(image)) {
+        image.onload = function () {
+          resolve(new colorThief_min().getPalette(image, colorsToExtract));
+        };
+      } else {
+        resolve(new colorThief_min().getPalette(image, colorsToExtract));
+      }
+    })
   }
 
   /**
@@ -577,6 +582,46 @@ function createPalettify () {
 
   function __getInvertedColors (palette, colors) {
     return palette.map(function (color) { return __isDark(color) ? colors.light : colors.dark; })
+  }
+
+  function __getUrl (url) {
+    var el = document.createElement('a');
+    el.href = url;
+    return el
+  }
+
+  function __isCORS (image) {
+    return document.location.host !== __getUrl(image.src).host
+  }
+
+  function isImageLoaded (img) {
+    if (!img.complete) { return false }
+
+    if (typeof img.naturalWidth !== 'undefined' && img.naturalWidth === 0) {
+      return false
+    }
+    // No other way of checking: assume it's ok.
+    return true
+  }
+
+  function __sanitizeImage (imgElement) {
+    var
+      cachedImg = imgElement,
+      isCors = __isCORS(cachedImg),
+      isNotIMG = cachedImg.tagName !== 'IMG';
+    if (!cachedImg) { throw Error('Target is not an element', cachedImg) }
+    // Our sample is not a img tag so we try to get its background image.
+    if (isNotIMG || (isCors && !cachedImg.crossOrigin)) {
+      if (isNotIMG && !cachedImg.style.backgroundImage) { throw Error('Tag provided is not an image and does not have a background-image style attached to it.') }
+      cachedImg = new Image(imgElement.offsetWidth, imgElement.offsetHeight);
+      isCors && (cachedImg.crossOrigin = 'anonymous');
+      if (isNotIMG) {
+        cachedImg.src = imgElement.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/gi, '');
+      } else {
+        cachedImg.src = imgElement.src;
+      }
+    }
+    return cachedImg
   }
 
   return self
