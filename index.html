@@ -18,17 +18,44 @@
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
+
         <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
+
         <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
+
         <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+
+        <img class="imageTarget" width="400" height="200" src="images/4_thumb.jpg" alt="abstract4">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+
+        <img class="imageTarget" width="400" height="200" src="images/5_thumb.jpg" alt="abstract5">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+
+        <img class="imageTarget" width="400" height="200" src="images/6_thumb.jpg" alt="abstract6">
+      </a>
+    </li>
+    <li class="hoverTarget">
+      <a href="#" class="attachTo">
+
+        <img class="imageTarget" width="400" height="200" src="images/7_thumb.jpg" alt="abstract7">
       </a>
     </li>
   </ul>
@@ -36,10 +63,10 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    window.palettifyInstance = window.palettify.createPalettify().init(Object.assign({}, window.palettify.styles.boxShadow, {
+    window.palettifyInstance = window.palettify.createPalettify().init(Object.assign({}, window.palettify.styles.border, {
       selector: '.wrapperElement',
       eventTarget: '.hoverTarget',
-      image: '.imageTarget'
+      image: '.imageTarget',
     }))
   }, false)
 </script>

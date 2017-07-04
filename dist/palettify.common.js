@@ -176,6 +176,9 @@ function createPalettify () {
      * @property {String} image - The image to sample
      * @property {String} styleTarget - The element to apply styling to. Defaults to image
      * @property {Array<number>} opacities - Array of opacities
+     * @property {Object} contrastColors - Light and Dark colors, based on brightness of each color in the palette
+     * @property {String} contrastColors.light - Light inverted color
+     * @property {String} contrastColors.dark - Dark inverted color
      * @property {String} activeClass - CSS class to apply on each enterEvent
      * @property {String} readyClass - CSS class to apply when palettify is ready
      * @property {Number} colorsToExtract - Colors to extract
@@ -195,6 +198,10 @@ function createPalettify () {
       image: Error('Please provide an image to sample.'),
       styleTarget: null,
       opacities: [0.5, 0.5, 0.5],
+      contrastColors: {
+        light: '#fff',
+        dark: '#000'
+      },
       activeClass: 'palettify--active',
       readyClass: 'palettify--ready',
       colorsToExtract: 3,
@@ -202,6 +209,7 @@ function createPalettify () {
       leaveEvent: 'mouseleave',
       staticStyles: {},
       dynamicStyles: {},
+      staticCallback: null,
       beforeEnterCallback: null,
       afterEnterCallback: null,
       beforeLeaveCallback: null,
@@ -280,7 +288,8 @@ function createPalettify () {
           obj.palette.original = __extractColors(obj.image, self.options.colorsToExtract);
           obj.palette.rgb = __opacifyPalette(obj.palette.original, []);
           obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.opacities);
-          __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette);
+          obj.palette.contrastColors = __getInvertedColors(obj.palette.original, self.options.contrastColors);
+          __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette, self.options.staticCallback);
         });
         __selector.classList.add(self.options.readyClass);
       },
@@ -511,14 +520,18 @@ function createPalettify () {
    * @param target
    * @param {Object} styles
    * @param palette
+   * @param cb
    * @private
    */
-  function __attachStylesToElement (target, styles, palette) {
+  function __attachStylesToElement (target, styles, palette, cb) {
+    if ( cb === void 0 ) cb = null;
+
     for (var prop in styles) {
       if (styles.hasOwnProperty(prop)) {
         target.style[prop] = render_1(styles[prop], palette);
       }
     }
+    cb && cb.call(target, target, styles, palette);
   }
 
   /**
@@ -552,6 +565,18 @@ function createPalettify () {
         throw self.options[opt]
       }
     });
+  }
+
+  function __getBrightness (rgb) {
+    return (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000
+  }
+
+  function __isDark (color) {
+    return __getBrightness(color) < 128
+  }
+
+  function __getInvertedColors (palette, colors) {
+    return palette.map(function (color) { return __isDark(color) ? colors.light : colors.dark; })
   }
 
   return self
