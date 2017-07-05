@@ -99,6 +99,7 @@
   },
   "dependencies": {
     "config-chain": "^1.1.11",
+    "deepmerge": "^1.4.4",
     "jsonfile": "^3.0.0"
   },
   "config": {

@@ -1,13 +1,38 @@
-## Setting different box-shadow effects
+# Built in Effects
 
-You can actually set different box-shadow effects than the one provided using the `boxShadowTemplate` option.
+**Palettify** comes with a few built in effects. They are mostly starters and are by no means perfect. Their purpose is to give you an idea what you can do with the plugin.
+The effects are in `palettify.styles.min.js` and can be imported in your build system or added directly in the browser as its an UMD module.
+To apply them, you have to merge them with your own styles.
+
+### boxShadow effect
+
+The box shadow effect is a little glow that is added to the image on each interaction.
+
 ```js
 const palettifyInstance = palettify().init({
-  hoverTarget: '.hoverTarget', 
-  imageTarget: '.imageTarget', 
-  boxShadowTemplate: '2px 3px 10px {color}'
+  selector: '#boxShadow',
+  eventTarget: '.hoverTarget', 
+  image: '.imageTarget', 
+  styles: Object.assign({}, palettifyStyles.boxShadow, { /* your styles here */ })
 })
 ```
+
+   <div class="image-list" id="boxShadow">
+      <div class="hoverTarget">
+        <img class="imageTarget" width="400" height="200" src="images/0_thumb.jpg" alt="abstract0">
+      </div>
+      <div class="hoverTarget">
+        <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
+      </div>
+      <div class="hoverTarget">
+        <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
+      </div>
+      <div class="hoverTarget">
+        <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
+      </div>
+    </div>
+    
+    
 You have two colors that you can use, `{color}` and `{colorSecondary}`. Both colors are RGBA and apply the opacity settings you provide defaulting to `.2`.
 Settings opacity is easy using the `opacity` and `opacitySecondary` settings.
 
@@ -83,19 +108,12 @@ const palettifyInstance = palettify().init({
     </div>  
   
 <script>
-  imagesLoaded('.imageTarget', function () {
-    window.palettifyInstance = palettify().init({
-        hoverTarget: '.focusTarget',
-        imageTarget: '.imageTarget',
-        enterEvent: ['mousedown', 'touchstart'],
-        leaveEvent: ['mouseup', 'touchend']
-      })
+     window.boxShadowInstance = palettify().init({
+       selector: '#boxShadow',
+       eventTarget: '.hoverTarget', 
+       image: '.imageTarget', 
+       styles: Object.assign({}, palettifyStyles.boxShadow)
+     })
       
-    window.palettifyInstance2 = palettify().init({
-        hoverTarget: '.customShadowTarget',
-        imageTarget: '.imageTarget',
-        opacity: 0.5,
-        boxShadowTemplate: '0 2px 10px 5px {color}, 0 5px 15px 10px {colorSecondary}'
-    })
-  })
+   
 </script>

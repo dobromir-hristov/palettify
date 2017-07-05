@@ -5,25 +5,39 @@
   margin: auto -15px !important;
 }
 
-.hoverTarget {
+.image-list .hoverTarget {
   flex: 1 1 25%;
   padding: 15px;
 }
 
-.imageTarget {
+.image-list .imageTarget {
   transition: .3s linear 0s;
   display: block;
   height: auto;
 }
 
-.hoverTarget.hoverTarget--bg {
+.image-list .hoverTarget.hoverTarget--bg {
   flex: 1 1 50%;
 }
 
-.hoverTarget.hoverTarget--bg .imageTarget {
+.image-list .hoverTarget.hoverTarget--bg .imageTarget {
   height: 200px;
   background-size: cover;
   background-position: center;
+}
+
+.image-list.image-list--popover .hoverTarget {
+  position: relative;
+}
+
+.image-list.image-list--popover .styleTarget {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 2rem;
+  padding: 2rem;
 }
 
 .attachTo {
@@ -31,11 +45,7 @@
   display: block;
 }
 
-.box-shadow-attached {
-  position: relative;
-  z-index: 1;
-}
-
+/* Docsify styles */
 .sidebar-toggle {
   top: 0;
   bottom: auto;

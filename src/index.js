@@ -1,6 +1,6 @@
 import ColorThief from '@mariotacke/color-thief'
 import { render } from 'micromustache'
-
+import merge from 'deepmerge'
 /**
  * Creates a palettify instance
  * @module palettify
@@ -36,7 +36,6 @@ function createPalettify () {
      * @property {String} eventTarget - The event target to attach event listeners to
      * @property {String} image - The image to sample
      * @property {String} styleTarget - The element to apply styling to. Defaults to image
-     * @property {Array<number>} opacities - Array of opacities
      * @property {Object} contrastColors - Light and Dark colors, based on brightness of each color in the palette
      * @property {String} contrastColors.light - Light inverted color
      * @property {String} contrastColors.dark - Dark inverted color
@@ -45,8 +44,10 @@ function createPalettify () {
      * @property {Number} colorsToExtract - Colors to extract
      * @property {String | Array} enterEvent - Event or Array of events to apply listeners to for each enterCallback
      * @property {string | Array} leaveEvent - Event or Array of events to apply listeners to for each leaveCallback
-     * @property {Object} staticStyles - Object containing valid css styles to apply to styleTarget on ready
-     * @property {Object} dynamicStyles - Object containing valid css styles to apply to styleTarget on each enterEvent
+     * @property {Object} styles - Collection of static and dynamic styles
+     * @property {Array<number>} styles.opacities - Array of opacities
+     * @property {Object} styles.static - Object containing valid css styles to apply to styleTarget on ready
+     * @property {Object} styles.dynamic - Object containing valid css styles to apply to styleTarget on each enterEvent
      * @property {Function} beforeEnterCallback - Callback called before the enter event
      * @property {Function} afterEnterCallback - Callback called after the enter event
      * @property {Function} beforeLeaveCallback - Callback called before the leave event
@@ -58,7 +59,6 @@ function createPalettify () {
       eventTarget: Error('Please provide an eventTarget as a parent for your image in the options.'),
       image: Error('Please provide an image to sample.'),
       styleTarget: null,
-      opacities: [0.5, 0.5, 0.5],
       contrastColors: {
         light: '#fff',
         dark: '#000'
@@ -68,8 +68,11 @@ function createPalettify () {
       colorsToExtract: 3,
       enterEvent: 'mouseenter',
       leaveEvent: 'mouseleave',
-      staticStyles: {},
-      dynamicStyles: {},
+      styles: {
+        opacities: [0.5, 0.5, 0.5],
+        static: {},
+        dynamic: {}
+      },
       staticCallback: null,
       beforeEnterCallback: null,
       afterEnterCallback: null,
@@ -117,26 +120,25 @@ function createPalettify () {
         let
           eventTargetsCollection = ''
         __selector = typeof self.options.selector === 'string' ? document.querySelector(self.options.selector) : self.options.selector
-        if (__selector) {
-          eventTargetsCollection = __selector.querySelectorAll(self.options.eventTarget);
-          [].slice.call(eventTargetsCollection, 0).forEach((eventTarget) => {
-            const
-              image = eventTarget.querySelector(self.options.image),
-              styleTarget = eventTarget.querySelector(self.options.styleTarget || self.options.image),
-              // Create the main object it self.
-              obj = {
-                eventTarget,
-                styleTarget,
-                image,
-                palette: {
-                  original: [],
-                  rgb: [],
-                  rgba: []
-                }
+        if (!__selector) { throw new Error('Selector does not exist') }
+        eventTargetsCollection = __selector.querySelectorAll(self.options.eventTarget);
+        [].slice.call(eventTargetsCollection, 0).forEach((eventTarget) => {
+          const
+            image = eventTarget.querySelector(self.options.image),
+            styleTarget = eventTarget.querySelector(self.options.styleTarget || self.options.image),
+            // Create the main object it self.
+            obj = {
+              eventTarget,
+              styleTarget,
+              image,
+              palette: {
+                original: [],
+                rgb: [],
+                rgba: []
               }
-            self.data.push(obj)
-          })
-        }
+            }
+          self.data.push(obj)
+        })
       },
       /**
        * Extracts colors and attaches static styles to each styleTarget {@see palettify#options.styleTarget}
@@ -150,9 +152,9 @@ function createPalettify () {
           promises[index] = __extractColors(obj.image, self.options.colorsToExtract).then(colors => {
             obj.palette.original = colors
             obj.palette.rgb = __opacifyPalette(obj.palette.original, [])
-            obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.opacities)
+            obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.styles.opacities)
             obj.palette.contrastColors = __getInvertedColors(obj.palette.original, self.options.contrastColors)
-            __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette, self.options.staticCallback)
+            __attachStylesToElement(obj.styleTarget, self.options.styles.static, obj.palette, self.options.staticCallback)
           })
         })
         if (!skipCallbacks) {
@@ -164,7 +166,7 @@ function createPalettify () {
       },
       /**
        * Generates the enter event listener callback
-       * Attaches dynamicStyles {@see palettify#options.dynamicStyles} to styleTarget
+       * Attaches dynamicStyles {@see palettify#options.styles.dynamic} to styleTarget
        * @function
        * @param {paletteObj} obj
        * @name palettify#generateEnterHandler
@@ -175,7 +177,7 @@ function createPalettify () {
           if (obj.styleTarget) {
             if (typeof self.options.beforeEnterCallback === 'function') self.options.beforeEnterCallback.call(obj.styleTarget, obj.palette, event, self.options)
             obj.styleTarget.classList.add(self.options.activeClass)
-            __attachStylesToElement(obj.styleTarget, self.options.dynamicStyles, obj.palette)
+            __attachStylesToElement(obj.styleTarget, self.options.styles.dynamic, obj.palette)
             if (typeof self.options.afterEnterCallback === 'function') self.options.afterEnterCallback.call(obj.styleTarget, obj.palette, event, self.options)
           }
         }
@@ -194,7 +196,7 @@ function createPalettify () {
           if (target) {
             if (self.options.beforeLeaveCallback) self.options.beforeLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options)
             target.classList.remove(self.options.activeClass)
-            __removeDynamicStylesFromElement(obj.styleTarget, self.options.dynamicStyles, self.options.staticStyles, obj.palette)
+            __removeDynamicStylesFromElement(obj.styleTarget, self.options.styles.dynamic, self.options.styles.static, obj.palette)
             if (self.options.afterLeaveCallback) self.options.afterLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options)
           }
         }
@@ -290,14 +292,14 @@ function createPalettify () {
         self.init(self.options)
       },
       /**
-       * Cleans up the dom after the plugin is destroyed. Removes all staticStyles
+       * Cleans up the dom after the plugin is destroyed. Removes all styles.static
        * @function
        * @name palettify#cleanUp
        */
       cleanUp () {
         self.data.forEach(obj => {
-          for (let prop in self.options.staticStyles) {
-            if (self.options.staticStyles.hasOwnProperty(prop)) {
+          for (let prop in self.options.styles.static) {
+            if (self.options.styles.static.hasOwnProperty(prop)) {
               obj.styleTarget.style[prop] = ''
             }
           }
@@ -417,7 +419,8 @@ function createPalettify () {
    * @private
    */
   function __mergeOptions (options) {
-    self.options = Object.assign({}, __defaults, options)
+    console.log(options)
+    self.options = merge(__defaults, options, {clone: true, arrayMerge: __arrayMerge})
     Object.keys(self.options).forEach(opt => {
       if (self.options[opt] instanceof Error) {
         throw self.options[opt]
@@ -464,7 +467,7 @@ function createPalettify () {
       src = isNotIMG ? imgElement.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/gi, '') : imgElement.src,
       isCors = __isCORS(src)
 
-      if (!cachedImg) throw Error('Target is not an element', cachedImg)
+    if (!cachedImg) throw Error('Target is not an element', cachedImg)
     // Our sample is not a img tag so we try to get its background image.
     if (isNotIMG || (isCors && !cachedImg.crossOrigin)) {
       if (isNotIMG && !cachedImg.style.backgroundImage) throw Error('Tag provided is not an image and does not have a background-image style attached to it.')
@@ -473,6 +476,10 @@ function createPalettify () {
       cachedImg.src = src
     }
     return cachedImg
+  }
+
+  function __arrayMerge (destArray, sourceArray, opts) {
+    return sourceArray
   }
 
   return self

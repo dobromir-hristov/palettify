@@ -6,6 +6,7 @@
 
 - Configurable plugin to extract image primary colors and apply cool effects to it.
 - Extendable and easily configurable
+- Brings its own effects to the party
 
 [GitHub](https://github.com/QingWei-Li/docsify/)
 [Get Started](#intro)

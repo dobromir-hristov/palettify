@@ -1,5 +1,5 @@
 # Install
-palettify can be used both in the browser via cdn or script tag and as a package in a build system.
+palettify can be used both in the browser via cdn or script tag and as a package in a build system like Rollup/Webpack/Browserify.
 
 ## Using a module bundler like Webpack/Rollup/Browserify etc
 
@@ -18,9 +18,12 @@ After you have installed the package import `palettify` and create a new instanc
 import palettify from 'palettify'
 
 const palettifyInstance = palettify().init({
-  hoverTarget: '.hoverTarget', // Element to attach event listener to (mouseenter bt default).
-  imageTarget: '.imageTarget', // Image target that we will be sampled for colors.
-  attachBoxShadowTo: '.imageTarget' // Element to attach the boxShadow to. (optional) Defaults to imageTarget.
+  selector: '.image-list',
+  eventTarget: '.hoverTarget', // Element to attach event listener to (mouseenter bt default).
+  image: '.imageTarget', // Image target that we will be sampled for colors.
+  styleTarget: '.imageTarget', // Element to attach the styles to. (optional) Defaults to image.
+  staticStyles: {}, // Static styles to apply on plugin load
+  dynamicStyles: {} // Dynamic styles to apply on each interaction
 })
 ```
 ___
@@ -32,34 +35,26 @@ If you are not using a module bundler and want to use it directly in the browser
 
 https://unpkg.com/palettify/dist/palettify
 
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/palettify@0.0.0/dist/palettify.js
+[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/palettify@0.0.0/dist/palettify.js......................
 
 ```html
-<script src="https://unpkg.com/palettify/dist/img-palette.js"></script>
-<script src="https://unpkg.com/img-palette/dist/palettify.js"></script>
+<script src="https://unpkg.com/palettify/dist/palettify.min.js"></script>
 ```
 
 or download it from [github](https://github.com/dobromir-hristov/palettify.git)
 
 ```html
 <script>
-  var palettifyInstance = palettify().init({
-      hoverTarget: '.hoverTarget', 
-      imageTarget: '.imageTarget', 
-      attachBoxShadowTo: '.imageTarget'
+  var palettifyInstance = window.palettify().init({
+      selector: '.image-list',
+      eventTarget: '.hoverTarget', 
+      image: '.imageTarget', 
+      styleTarget: '.imageTarget',
+      staticStyles: {}, 
+      dynamicStyles: {} 
   })
 </script>
-```
-### TIP!!
-Because we are working with images, its good practise to make sure they are all loaded before we can sample them.
-One good way is to use the [imagesLoaded](https://imagesloaded.desandro.com) library. Add it in your page (via cdn or bundle) and init after is done.
-```js
-imagesLoaded('.imageTarget', function() {
-  window.palettifyInstance = palettify().init({
-    hoverTarget: '.hoverTarget',
-    imageTarget: '.imageTarget'
-  })
-})
+
 ```
 ## Exemplary markup
 ```html
