@@ -140,11 +140,11 @@ function createPalettify () {
       },
       /**
        * Extracts colors and attaches static styles to each styleTarget {@see palettify#options.styleTarget}
-       * Adds ready class when done
+       * Adds ready class and calls onReadyCallback when done
        * @function
        * @name palettify#extractColorsAndAttachStyles
        */
-      extractColorsAndAttachStyles () {
+      extractColorsAndAttachStyles (skipCallbacks = false) {
         let promises = []
         self.data.forEach((obj, index) => {
           promises[index] = __extractColors(obj.image, self.options.colorsToExtract).then(colors => {
@@ -155,9 +155,12 @@ function createPalettify () {
             __attachStylesToElement(obj.styleTarget, self.options.staticStyles, obj.palette, self.options.staticCallback)
           })
         })
-        Promise.all(promises).then(values => {
-          __selector.classList.add(self.options.readyClass)
-        })
+        if (!skipCallbacks) {
+          Promise.all(promises).then(values => {
+            __selector.classList.add(self.options.readyClass)
+            typeof self.options.onReadyCallback === 'function' && self.options.onReadyCallback.call(self, self)
+          })
+        }
       },
       /**
        * Generates the enter event listener callback
@@ -261,8 +264,6 @@ function createPalettify () {
         self.attachEventListeners()
         // Set isInitialized to true so we cant initialize again until destroyed
         isInitialized = true
-
-        typeof self.options.onReadyCallback === 'function' && self.options.onReadyCallback.call(self, self)
 
         return self
       },
@@ -442,8 +443,8 @@ function createPalettify () {
     return el
   }
 
-  function __isCORS (image) {
-    return document.location.host !== __getUrl(image.src).host
+  function __isCORS (src) {
+    return document.location.host !== __getUrl(src).host
   }
 
   function isImageLoaded (img) {
@@ -459,19 +460,17 @@ function createPalettify () {
   function __sanitizeImage (imgElement) {
     let
       cachedImg = imgElement,
-      isCors = __isCORS(cachedImg),
-      isNotIMG = cachedImg.tagName !== 'IMG'
-    if (!cachedImg) throw Error('Target is not an element', cachedImg)
+      isNotIMG = cachedImg.tagName !== 'IMG',
+      src = isNotIMG ? imgElement.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/gi, '') : imgElement.src,
+      isCors = __isCORS(src)
+
+      if (!cachedImg) throw Error('Target is not an element', cachedImg)
     // Our sample is not a img tag so we try to get its background image.
     if (isNotIMG || (isCors && !cachedImg.crossOrigin)) {
       if (isNotIMG && !cachedImg.style.backgroundImage) throw Error('Tag provided is not an image and does not have a background-image style attached to it.')
       cachedImg = new Image(imgElement.offsetWidth, imgElement.offsetHeight)
       isCors && (cachedImg.crossOrigin = 'anonymous')
-      if (isNotIMG) {
-        cachedImg.src = imgElement.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/gi, '')
-      } else {
-        cachedImg.src = imgElement.src
-      }
+      cachedImg.src = src
     }
     return cachedImg
   }
