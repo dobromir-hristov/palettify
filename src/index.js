@@ -444,7 +444,7 @@ function createPalettify () {
   }
 
   function __isDark (color) {
-    return __getBrightness(color) < 128
+    return __getBrightness(color) < 170 // 128 by default, but 170 gives better results
   }
 
   function __getInvertedColors (palette, colors) {
