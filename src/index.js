@@ -125,7 +125,7 @@ function createPalettify () {
         [].slice.call(eventTargetsCollection, 0).forEach((eventTarget) => {
           const
             image = eventTarget.querySelector(self.options.image),
-            styleTarget = eventTarget.querySelector(self.options.styleTarget || self.options.image),
+            styleTarget = self.options.styleTarget === true ? eventTarget : eventTarget.querySelector(self.options.styleTarget || self.options.image),
             // Create the main object it self.
             obj = {
               eventTarget,

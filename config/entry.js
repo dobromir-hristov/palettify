@@ -85,7 +85,7 @@ const entries = {
     banner,
     plugins: [
       sass({
-        output: 'dist/styles.css',
+        output: 'dist/palettify.css',
         processor: css =>
           postcss([autoprefixer])
             .process(css)

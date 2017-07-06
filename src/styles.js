@@ -1,4 +1,4 @@
-import styles from './styles.scss'
+import styles from './palettify.scss'
 
 export const boxShadow = {
   opacities: [0.2, 0.2],
@@ -28,5 +28,13 @@ export const diagonalBG = {
   opacities: [],
   static: {
     backgroundColor: '{{contrastColors.0}}'
+  }
+}
+
+export const zoomOutRight = {
+  opacities: [],
+  static: {
+    backgroundColor: '{{rgb.0}}',
+    color: '{{ contrastColors.0 }}'
   }
 }
