@@ -3,8 +3,9 @@ const buble = require('rollup-plugin-buble')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const legacy = require('rollup-plugin-legacy')
-//const builtins = require('rollup-plugin-node-builtins');
-//const globals = require('rollup-plugin-node-globals');
+const sass = require('rollup-plugin-sass')
+const autoprefixer = require('autoprefixer')
+const postcss = require('postcss')
 const banner = require('./banner')
 const pack = require('../package.json')
 
@@ -81,7 +82,16 @@ const entries = {
     format: 'umd',
     env: 'production',
     moduleName: 'palettifyStyles',
-    banner
+    banner,
+    plugins: [
+      sass({
+        output: 'dist/styles.css',
+        processor: css =>
+          postcss([autoprefixer])
+            .process(css)
+            .then(result => result.css)
+      })
+    ]
   }
 }
 
@@ -112,6 +122,9 @@ function genConfig (opts) {
     replacePluginOptions['process.env.NODE_ENV'] = JSON.stringify(opts.env)
   }
   config.plugins.push(replace(replacePluginOptions))
+  if (opts.moduleName === 'palettifyStyles') {
+    config.plugins = opts.plugins
+  }
 
   return config
 }

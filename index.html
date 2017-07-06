@@ -3,58 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 </head>
 <link rel="stylesheet" href="style.css">
 <body>
 <div class="wrapper">
-  <h2>
-    Attach hover effect to image.
-  </h2>
-  <ul class="no-style wrapperElement">
+  <h2> Diagonal BG Effect</h2>
+  <div class="list diagonalBG" id="diagonalBG">
+    <figure class="figure">
+      <img class="image" width="400" height="200" src="http://i.imgur.com/CWaSdBR.jpg" alt="abstract0">
+      <figcaption class="caption">
+        <h2>Jason Response</h2>
+        <p>Just makes people try to do everything at once.</p>
+      </figcaption>
+      <a href="#" class="attachTo"> </a>
+      <div class="diagonal"></div>
+    </figure>
+    <figure class="figure">
+      <img class="image" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
+      <figcaption class="caption">
+        <h2>Fleece Marigold</h2>
+        <p>We'd invent machines that do things less efficiently.</p>
+      </figcaption>
+      <a href="#" class="attachTo"> </a>
+      <div class="diagonal"></div>
+    </figure>
+    <figure class="figure">
+      <img class="image" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
+      <figcaption class="caption">
+        <h2>Ruby Von Rails</h2>
+        <p>To the machines and go play outside.</p>
+      </figcaption>
+      <a href="#" class="attachTo"> </a>
+      <div class="diagonal"></div>
+    </figure>
+    <figure class="figure">
+      <img class="image" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
+      <figcaption class="caption">
+        <h2>Ruby Von Rails</h2>
+        <p>To the machines and go play outside.</p>
+      </figcaption>
+      <a href="#" class="attachTo"> </a>
+      <div class="diagonal"></div>
+    </figure>
+    <figure class="figure">
+      <img class="image" width="400" height="200" src="images/4_thumb.jpg" alt="abstract4">
+      <figcaption class="caption">
+        <h2>Ruby Von Rails</h2>
+        <p>To the machines and go play outside.</p>
+      </figcaption>
+      <a href="#" class="attachTo"> </a>
+      <div class="diagonal"></div>
+    </figure>
+  </div>
+  <h2>Zoom Out to Right</h2>
+  <ul class="list zoomOutToRight" id="zoomOutToRight">
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-        <img class="imageTarget" width="400" height="200" src="http://i.imgur.com/CWaSdBR.jpg" alt="abstract0">
-      </a>
-    </li>
-    <li class="hoverTarget">
-      <a href="#" class="attachTo">
-
-        <img class="imageTarget" width="400" height="200" src="images/1_thumb.jpg" alt="abstract1">
-      </a>
-    </li>
-    <li class="hoverTarget">
-      <a href="#" class="attachTo">
-
-        <img class="imageTarget" width="400" height="200" src="images/2_thumb.jpg" alt="abstract2">
-      </a>
-    </li>
-    <li class="hoverTarget">
-      <a href="#" class="attachTo">
-
-        <img class="imageTarget" width="400" height="200" src="images/3_thumb.jpg" alt="abstract3">
-      </a>
-    </li>
-    <li class="hoverTarget">
-      <a href="#" class="attachTo">
-
         <img class="imageTarget" width="400" height="200" src="images/4_thumb.jpg" alt="abstract4">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-
         <img class="imageTarget" width="400" height="200" src="images/5_thumb.jpg" alt="abstract5">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-
         <img class="imageTarget" width="400" height="200" src="images/6_thumb.jpg" alt="abstract6">
       </a>
     </li>
     <li class="hoverTarget">
       <a href="#" class="attachTo">
-
         <img class="imageTarget" width="400" height="200" src="images/7_thumb.jpg" alt="abstract7">
       </a>
     </li>
@@ -63,12 +83,17 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    window.palettifyInstance = window.palettify.createPalettify().init(
+    window.diagonalBG = window.palettify.createPalettify().init(
       {
-        selector: '.wrapperElement',
-        eventTarget: '.hoverTarget',
-        image: '.imageTarget',
-        styles: Object.assign({}, window.palettify.styles.border)
+        selector: '#diagonalBG',
+        eventTarget: '.figure',
+        image: '.image',
+        styleTarget: '.diagonal',
+        styles: Object.assign({}, window.palettify.styles.diagonalBG),
+        staticCallback: function (obj) {
+          var caption = obj.eventTarget.querySelector('.caption')
+          caption && (caption.style.color = obj.palette.rgb[0])
+        }
       })
   }, false)
 </script>
