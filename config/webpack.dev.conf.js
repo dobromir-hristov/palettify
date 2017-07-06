@@ -38,7 +38,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: 'index.ejs',
       inject: true
     }),
     new webpack.DefinePlugin({

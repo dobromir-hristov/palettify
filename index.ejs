@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/css/foundation.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper grid-container grid-container-padded">
+  <h2> Diagonal BG Effect</h2>
+  <div class="grid-x grid-margin-x medium-up-3 diagonalBackground" id="diagonalBackground">
+    <% for(let i = 0; i < 6; i++) { %>
+    <div class="cell m-b-10">
+      <figure class="figure">
+        <img class="image" src="<%= 'images/' + i + '_thumb.jpg' %>" alt="abstract<%= i %>">
+        <figcaption class="caption">
+          <h4 class="title">Jason Response</h4>
+          <p class="desc">Just makes people try to do everything at once.</p>
+        </figcaption>
+        <a href="#" class="attachTo"> </a>
+        <div class="diagonal"></div>
+      </figure>
+    </div>
+    <% } %>
+  </div>
+  <h2>Zoom Out to Right</h2>
+  <div class="grid-x grid-margin-x medium-up-3 zoomOutRight" id="zoomOutRight">
+    <% for(let i = 2; i < 8; i++) { %>
+    <div class="cell m-b-10">
+      <figure class="figure">
+        <figcaption class="caption">
+          <h4 class="title">Norman Gordon</h4>
+          <p class="desc">You don't get to be mom if you can't fix everything just right.</p>
+        </figcaption>
+        <a href="#"></a>
+        <div class="image" style="background-image: url('images/<%= i %>_thumb.jpg')"></div>
+      </figure>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.diagonalBackground = window.palettify.createPalettify().init(
+      {
+        selector: '#diagonalBackground',
+        eventTarget: '.figure',
+        image: '.image',
+        styleTarget: '.diagonal',
+        styles: Object.assign({}, window.palettify.styles.diagonalBackground),
+        staticCallback: function (obj) {
+          var caption = obj.eventTarget.querySelector('.caption')
+          caption && (caption.style.color = obj.palette.rgb[0])
+        }
+      })
+
+    window.zoomOutRight = window.palettify.createPalettify().init(
+      {
+        selector: '#zoomOutRight',
+        eventTarget: '.figure',
+        image: '.image',
+        styleTarget: true,
+        styles: Object.assign({}, window.palettify.styles.zoomOutRight)
+      })
+
+  }, false)
+</script>
+</body>
+</html>
