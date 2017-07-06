@@ -419,7 +419,6 @@ function createPalettify () {
    * @private
    */
   function __mergeOptions (options) {
-    console.log(options)
     self.options = merge(__defaults, options, {clone: true, arrayMerge: __arrayMerge})
     Object.keys(self.options).forEach(opt => {
       if (self.options[opt] instanceof Error) {
