@@ -19,7 +19,6 @@ export const border = {
     padding: '10px'
   },
   dynamic: {
-    borderWidth: '0px',
-    margin: '10px'
+    borderWidth: '0px'
   }
 }
