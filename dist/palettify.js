@@ -379,7 +379,13 @@ function createPalettify () {
             obj.palette.rgb = __opacifyPalette(obj.palette.original, []);
             obj.palette.rgba = __opacifyPalette(obj.palette.original, self.options.styles.opacities);
             obj.palette.contrastColors = __getInvertedColors(obj.palette.original, self.options.contrastColors);
-            __attachStylesToElement(obj.styleTarget, self.options.styles.static, obj.palette, self.options.staticCallback);
+            __attachStylesToElement({
+              target: obj.styleTarget,
+              styles: self.options.styles.static,
+              palette: obj.palette,
+              staticCallback: self.options.staticCallback,
+              obj: obj
+            });
           });
         });
         if (!skipCallbacks) {
@@ -400,10 +406,15 @@ function createPalettify () {
       generateEnterHandler: function generateEnterHandler (obj) {
         return function (event) {
           if (obj.styleTarget) {
-            if (typeof self.options.beforeEnterCallback === 'function') { self.options.beforeEnterCallback.call(obj.styleTarget, obj.palette, event, self.options); }
+            if (typeof self.options.beforeEnterCallback === 'function') { self.options.beforeEnterCallback.call(obj.styleTarget, obj, self.options, event); }
             obj.styleTarget.classList.add(self.options.activeClass);
-            __attachStylesToElement(obj.styleTarget, self.options.styles.dynamic, obj.palette);
-            if (typeof self.options.afterEnterCallback === 'function') { self.options.afterEnterCallback.call(obj.styleTarget, obj.palette, event, self.options); }
+            __attachStylesToElement({
+              target: obj.styleTarget,
+              styles: self.options.styles.dynamic,
+              palette: obj.palette,
+              obj: obj
+            });
+            if (typeof self.options.afterEnterCallback === 'function') { self.options.afterEnterCallback.call(obj.styleTarget, obj, self.options, event); }
           }
         }
       },
@@ -419,10 +430,10 @@ function createPalettify () {
         return function (event) {
           var target = obj.styleTarget;
           if (target) {
-            if (self.options.beforeLeaveCallback) { self.options.beforeLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options); }
+            if (typeof self.options.beforeLeaveCallback === 'function') { self.options.beforeLeaveCallback.call(obj.styleTarget, obj, self.options, event); }
             target.classList.remove(self.options.activeClass);
             __removeDynamicStylesFromElement(obj.styleTarget, self.options.styles.dynamic, self.options.styles.static, obj.palette);
-            if (self.options.afterLeaveCallback) { self.options.afterLeaveCallback.call(obj.styleTarget, obj.palette, event, self.options); }
+            if (typeof self.options.afterLeaveCallback === 'function') { self.options.afterLeaveCallback.call(obj.styleTarget, obj, self.options, event); }
           }
         }
       },
@@ -614,18 +625,23 @@ function createPalettify () {
    * @param target
    * @param {Object} styles
    * @param palette
-   * @param cb
+   * @param staticCallback
+   * @param obj
    * @private
    */
-  function __attachStylesToElement (target, styles, palette, cb) {
-    if ( cb === void 0 ) cb = null;
+  function __attachStylesToElement (ref) {
+    var target = ref.target;
+    var styles = ref.styles;
+    var palette = ref.palette;
+    var staticCallback = ref.staticCallback; if ( staticCallback === void 0 ) staticCallback = null;
+    var obj = ref.obj;
 
     for (var prop in styles) {
       if (styles.hasOwnProperty(prop)) {
         target.style[prop] = render_1(styles[prop], palette);
       }
     }
-    cb && cb.call(target, target, styles, palette);
+    staticCallback && staticCallback.call(target, obj, self.options);
   }
 
   /**

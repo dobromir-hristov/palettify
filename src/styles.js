@@ -15,8 +15,7 @@ export const popoverBackground = {
 export const border = {
   static: {
     border: '10px solid {{rgb.0}}',
-    borderWidth: '10px',
-    padding: '10px'
+    borderWidth: '10px'
   },
   dynamic: {
     borderWidth: '0px'

@@ -63,11 +63,13 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    window.palettifyInstance = window.palettify.createPalettify().init(Object.assign({}, window.palettify.styles.border, {
-      selector: '.wrapperElement',
-      eventTarget: '.hoverTarget',
-      image: '.imageTarget',
-    }))
+    window.palettifyInstance = window.palettify.createPalettify().init(
+      {
+        selector: '.wrapperElement',
+        eventTarget: '.hoverTarget',
+        image: '.imageTarget',
+        styles: Object.assign({}, window.palettify.styles.border)
+      })
   }, false)
 </script>
 </body>
