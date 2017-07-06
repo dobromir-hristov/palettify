@@ -1,11 +1,9 @@
-#{$diagonalBG_class} {
+#{$diagonalBackground_class} {
   .figure {
     position: relative;
     overflow: hidden;
     min-width: 220px;
-    max-width: 310px;
     max-height: 220px;
-    width: 100%;
     text-align: center;
     &:hover .diagonal, &.hover .diagonal {
       transform: skew(-45deg) scaleX(1);
