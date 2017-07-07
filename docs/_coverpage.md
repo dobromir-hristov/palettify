@@ -1,6 +1,6 @@
 ![logo](images/logo.png)
 
-# palettify <small>0.0.0</small>
+# palettify <small>1.0.0</small>
 
 > An eye catching image effect plugin
 
