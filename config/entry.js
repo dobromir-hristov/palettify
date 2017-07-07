@@ -8,6 +8,7 @@ const autoprefixer = require('autoprefixer')
 const postcss = require('postcss')
 const banner = require('./banner')
 const pack = require('../package.json')
+const writeFileSync = require('fs').writeFileSync
 
 //function toUpper (_, c) {
 //  return c ? c.toUpperCase() : ''
@@ -85,7 +86,15 @@ const entries = {
     banner,
     plugins: [
       sass({
-        output: 'dist/palettify.css',
+        options: {
+          outputStyle: 'compressed'
+        },
+        output (styles, styleNodes) {
+          styleNodes.forEach(obj => {
+            const name = obj.id.replace(/^.*[\\\/]/, '').replace('.scss', '.min.css')
+            writeFileSync('dist/' + name, obj.content)
+          })
+        },
         processor: css =>
           postcss([autoprefixer])
             .process(css)

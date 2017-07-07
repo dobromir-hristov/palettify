@@ -120,7 +120,7 @@ function createPalettify () {
         let
           eventTargetsCollection = ''
         __selector = typeof self.options.selector === 'string' ? document.querySelector(self.options.selector) : self.options.selector
-        if (!__selector) { throw new Error('Selector does not exist') }
+        if (!__selector) { throw new Error('Selector ' + self.options.selector + ' does not exist') }
         eventTargetsCollection = __selector.querySelectorAll(self.options.eventTarget);
         [].slice.call(eventTargetsCollection, 0).forEach((eventTarget) => {
           const

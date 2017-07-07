@@ -19,7 +19,7 @@ There is no required markup or specific classes to use. The only requirements ar
 </div>
 ```
 
-  <div class="image-list">
+  <div class="image-list" id="boxShadow">
     <div class="hoverTarget">
       <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
     </div>
@@ -46,7 +46,7 @@ You can also use the plugin with background images too. Only requirement is the 
   </div>
 </div>
 ```
-  <div class="image-list image-list--bg">
+  <div class="image-list image-list--bg" id="boxShadow2">
     <div class="hoverTarget hoverTarget--bg">
       <div class="imageTarget" style="background-image: url('http://i.imgur.com/YQqDfyF.jpg')"></div>
     </div>
@@ -159,7 +159,7 @@ This is very useful when you need to show text in a background filled with the p
 | colorsToExtract | Number | optional | Number of colors to extract for the palette | 
 | contrastColors | Object | optional | Contrast colors to be assigned depending on the luminosity of each color. Dark ones get light color, light colors get the dark one. Defaults to: `{light:'#fff', dark:'#000'}` | 
 | activeClass | String | optional | CSS class to apply on each enterEvent. Defaults to `palettify--active` |
-| readyClass | String | optional | CSS class to apply when palettify is ready. Defaults to `palettify--ready` |
+| readyClass | String | optional | CSS class to apply when palettify is ready. Defaults to `palettify--ready`  |
 | enterEvent | String or Array | optional | Event or Array of events to apply listeners to for each enter interaction. Defaults to mouseenter |
 | leaveEvent | String or Array | optional | Event or Array of events to apply listeners to for each leave interaction. Defaults to mouseleave |
 | beforeEnterCallback | Function | optional | Callback called before the enter event |
@@ -203,7 +203,7 @@ The palettify instance returns a `data` array that represents a collection of ht
 <script>
   window.boxshadow = palettify().init(
     {
-      selector: '.image-list',
+      selector: '#boxShadow',
       eventTarget: '.hoverTarget',
       image: '.imageTarget',
       styles: Object.assign({}, palettifyStyles.boxShadow)
@@ -212,7 +212,7 @@ The palettify instance returns a `data` array that represents a collection of ht
   
    window.border = palettify().init(
       {
-        selector: '.image-list--bg',
+        selector: '#boxShadow2',
         eventTarget: '.hoverTarget',
         image: '.imageTarget',
         styles: Object.assign({}, palettifyStyles.border)

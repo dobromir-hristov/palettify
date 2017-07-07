@@ -86,8 +86,11 @@ function finished () {
   try {
     fs.copySync(relative(process.cwd(), 'dist/palettify.min.js'), relative(process.cwd(), 'docs/scripts/palettify.min.js'))
     fs.copySync(relative(process.cwd(), 'dist/palettify.styles.min.js'), relative(process.cwd(), 'docs/scripts/palettify.styles.min.js'))
+    fs.copySync(relative(process.cwd(), 'dist/palettify.min.css'), relative(process.cwd(), 'docs/styles/palettify.min.css'))
+    fs.moveSync(relative(process.cwd(), 'dist/_grid_docs.min.css'), relative(process.cwd(), 'docs/styles/grid.min.css'), {overwrite: true})
   } catch (err) {
     console.error(err)
   }
   console.log('palettify.js moved')
+  console.log('palettify styles moved')
 }

@@ -1,8 +1,10 @@
 ## Built in Effects
 
-**Palettify** comes with a few built in effects. They are mostly starters and are by no means perfect. Their purpose is to give you an idea what you can do with the plugin.
+**Palettify** comes with a few built in effects. Their purpose is to give you an idea what you can do with the plugin.
 The effects are in `palettify.styles.min.js` and can be imported in your build system or added directly in the browser as its an UMD module.
 To apply them, you have to merge them with your own styles.
+
+The more advanced exampled have css styles that you have to include as well. Either use `palettify.min.css` or use the raw scss files.
 
 #### Node/Build system
 ```js
@@ -53,10 +55,12 @@ Sometimes you just need more advanced features. This is where the callbacks come
     
 
 <script>
-     window.boxShadowInstance = palettify().init({
-       selector: '#boxShadow',
-       eventTarget: '.hoverTarget', 
-       image: '.imageTarget', 
-       styles: Object.assign({}, palettifyStyles.boxShadow)
-     }) 
+    setTimeout(function(){
+       window.boxShadowInstance = palettify().init({
+             selector: '#boxShadow',
+             eventTarget: '.hoverTarget', 
+             image: '.imageTarget', 
+             styles: Object.assign({}, palettifyStyles.boxShadow)
+       }) 
+    }, 1)
 </script>

@@ -1,4 +1,4 @@
-.image-list {
+.image-list{
   list-style: none;
   display: flex;
   flex-flow: row wrap;
@@ -6,7 +6,7 @@
 }
 
 .image-list .hoverTarget {
-  flex: 1 1 25%;
+  flex: 0 0 33%;
   padding: 15px;
 }
 
@@ -14,30 +14,6 @@
   transition: .3s linear 0s;
   display: block;
   height: auto;
-}
-
-.image-list .hoverTarget.hoverTarget--bg {
-  flex: 1 1 50%;
-}
-
-.image-list .hoverTarget.hoverTarget--bg .imageTarget {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-}
-
-.image-list.image-list--popover .hoverTarget {
-  position: relative;
-}
-
-.image-list.image-list--popover .styleTarget {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  font-size: 2rem;
-  padding: 2rem;
 }
 
 .attachTo {
