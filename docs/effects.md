@@ -67,11 +67,11 @@ _include extra palettify styles_
  <div class="zoomOutRight" id="zoomOutRight">
   ...
     <figure class="figure">
-      <img class="image" src="images/0_thumb.jpg" alt="abstract">
       <figcaption class="caption">
         <h4 class="title">Jason Response</h4>
         <p class="desc">Just makes people try to do everything at once.</p>
       </figcaption>
+      <img class="image" src="images/0_thumb.jpg" alt="abstract">
       <a href="#" class="attachTo"> </a>
     </figure>
   ...
@@ -90,29 +90,29 @@ _include extra palettify styles_
  <div class="grid-x grid-margin-x medium-up-2 zoomOutRight" id="zoomOutRight">
     <div class="cell m-b-10">
       <figure class="figure">
+        <figcaption class="caption">
+          <h4 class="title">Jason Response</h4>
+          <p class="desc">Just makes people try to do everything at once.</p>
+        </figcaption>
         <img class="image" src="images/0_thumb.jpg" alt="abstract">
-        <figcaption class="caption">
-          <h4 class="title">Jason Response</h4>
-          <p class="desc">Just makes people try to do everything at once.</p>
-        </figcaption>
       </figure>
     </div>
     <div class="cell m-b-10">
       <figure class="figure">
+        <figcaption class="caption">
+          <h4 class="title">Jason Response</h4>
+          <p class="desc">Just makes people try to do everything at once.</p>
+        </figcaption>
         <img class="image" src="images/1_thumb.jpg" alt="abstract1">
-        <figcaption class="caption">
-          <h4 class="title">Jason Response</h4>
-          <p class="desc">Just makes people try to do everything at once.</p>
-        </figcaption>
       </figure>
     </div>
     <div class="cell m-b-10">
       <figure class="figure">
-        <img class="image" src="images/2_thumb.jpg" alt="abstract2">
         <figcaption class="caption">
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
+        <img class="image" src="images/2_thumb.jpg" alt="abstract2">
       </figure>
     </div>
   </div>
