@@ -314,12 +314,12 @@ function createPalettify () {
         var
           eventTargetsCollection = '';
         __selector = typeof self.options.selector === 'string' ? document.querySelector(self.options.selector) : self.options.selector;
-        if (!__selector) { throw new Error('Selector does not exist') }
+        if (!__selector) { throw new Error('Selector ' + self.options.selector + ' does not exist') }
         eventTargetsCollection = __selector.querySelectorAll(self.options.eventTarget);
         [].slice.call(eventTargetsCollection, 0).forEach(function (eventTarget) {
           var
             image = eventTarget.querySelector(self.options.image),
-            styleTarget = eventTarget.querySelector(self.options.styleTarget || self.options.image),
+            styleTarget = self.options.styleTarget === true ? eventTarget : eventTarget.querySelector(self.options.styleTarget || self.options.image),
             // Create the main object it self.
             obj = {
               eventTarget: eventTarget,
@@ -653,7 +653,7 @@ function createPalettify () {
   }
 
   function __isDark (color) {
-    return __getBrightness(color) < 128
+    return __getBrightness(color) < 170 // 128 by default, but 170 gives better results
   }
 
   function __getInvertedColors (palette, colors) {

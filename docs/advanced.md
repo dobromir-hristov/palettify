@@ -4,7 +4,7 @@
 The effects are in `palettify.styles.min.js` and can be imported in your build system or added directly in the browser as its an UMD module.
 To apply them, you have to merge them with your own styles.
 
-The more advanced exampled have css styles that you have to include as well. Either use `palettify.min.css` or use the raw scss files.
+The more advanced examples have css styles that you have to include as well. Either use `palettify.min.css` or use the raw scss files.
 
 #### Node/Build system
 ```js

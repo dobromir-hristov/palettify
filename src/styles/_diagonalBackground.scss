@@ -34,7 +34,7 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      opacity: 0.95;
+      opacity: 0.90;
       transform: skew(-45deg) scaleX(0);
       transition: all 0.3s ease-in-out;
       background: #fff;
@@ -51,6 +51,7 @@
       margin: 0;
       width: 100%;
       opacity: 0;
+      color: inherit;
     }
     .title {
       padding: 0 30px;

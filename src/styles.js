@@ -21,7 +21,7 @@ export const border = {
 export const diagonalBackground = {
   opacities: [],
   static: {
-    backgroundColor: '{{contrastColors.0}}'
+    color: '{{rgb.0}}'
   }
 }
 
