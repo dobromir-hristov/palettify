@@ -36,7 +36,6 @@ palettify().init({
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
         <div class="diagonal"></div>
       </figure>
     </div>
@@ -47,7 +46,6 @@ palettify().init({
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
         <div class="diagonal"></div>
       </figure>
     </div>
@@ -58,7 +56,6 @@ palettify().init({
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
         <div class="diagonal"></div>
       </figure>
     </div>
@@ -98,7 +95,6 @@ _include extra palettify styles_
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
       </figure>
     </div>
     <div class="cell m-b-10">
@@ -108,7 +104,6 @@ _include extra palettify styles_
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
       </figure>
     </div>
     <div class="cell m-b-10">
@@ -118,7 +113,6 @@ _include extra palettify styles_
           <h4 class="title">Jason Response</h4>
           <p class="desc">Just makes people try to do everything at once.</p>
         </figcaption>
-        <a href="#" class="attachTo"> </a>
       </figure>
     </div>
   </div>

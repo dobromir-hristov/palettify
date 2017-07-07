@@ -14,3 +14,4 @@ It scans the images you provide, extracts their color palette and applies the st
 - [Installation](installation.md)
 - [Getting Started](started.md)
 - [Advanced](advanced.md)
+- [Cool Effects](effects.md)
