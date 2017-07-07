@@ -11,27 +11,35 @@ There is no required markup or specific classes to use. The only requirements ar
 ```html
 <div class="image-list">
   <div class="hoverTarget">
-    <img class="imageTarget" width="400" height="200" src="images/0.jpg">
+    <img class="imageTarget" src="images/0.jpg">
   </div>
   <div class="hoverTarget">
-     <img class="imageTarget" width="400" height="200" src="images/1.jpg">
+     <img class="imageTarget" src="images/1.jpg">
   </div>
 </div>
 ```
 
-  <div class="image-list" id="boxShadow">
-    <div class="hoverTarget">
-      <img class="imageTarget" width="400" height="200" src="images/0.jpg" alt="abstract0">
+  <div class="grid-x grid-margin-x medium-up-2 grid-margin-x-bottom" id="boxShadow">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" src="images/0.jpg" alt="abstract0">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" width="400" height="200" src="images/1.jpg" alt="abstract1">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" src="images/1.jpg" alt="abstract1">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" width="400" height="200" src="images/2.jpg" alt="abstract2">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" src="images/2.jpg" alt="abstract2">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" width="400" height="200" src="images/3.jpg" alt="abstract3">
-    </div>
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" src="images/3.jpg" alt="abstract3">
+      </div>
+    </div>  
   </div>  
   
 ### Background Images
@@ -46,18 +54,26 @@ You can also use the plugin with background images too. Only requirement is the 
   </div>
 </div>
 ```
-  <div class="image-list image-list--bg" id="boxShadow2">
-    <div class="hoverTarget hoverTarget--bg">
-      <div class="imageTarget" style="background-image: url('http://i.imgur.com/YQqDfyF.jpg')"></div>
+  <div class="grid-x grid-margin-x medium-up-2 grid-margin-x-bottom " id="boxShadow2">
+    <div class="cell">
+      <div class="hoverTarget">
+        <div class="imageTarget image-on-background" style="background-image: url('images/0.jpg')"></div>
+      </div>
     </div>
-    <div class="hoverTarget hoverTarget--bg">
-       <div class="imageTarget" style="background-image: url('images/1.jpg')"></div>
+    <div class="cell">
+      <div class="hoverTarget">
+         <div class="imageTarget image-on-background" style="background-image: url('images/1.jpg')"></div>
+      </div>
     </div>
-    <div class="hoverTarget hoverTarget--bg">
-      <div class="imageTarget" style="background-image: url('images/2.jpg')"></div>
+    <div class="cell">
+      <div class="hoverTarget">
+        <div class="imageTarget image-on-background" style="background-image: url('images/2.jpg')"></div>
+      </div>
     </div>
-    <div class="hoverTarget hoverTarget--bg">
-       <div class="imageTarget" style="background-image: url('images/3.jpg')"></div>
+    <div class="cell">
+      <div class="hoverTarget">
+         <div class="imageTarget image-on-background" style="background-image: url('images/3.jpg')"></div>
+      </div>
     </div>
   </div>
   
@@ -70,32 +86,40 @@ You should add the `crossorigin="Anonymous"` tag to your image, if you forget to
 ```html
   <div class="image-list">
     <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/YQqDfyF.jpg" alt="abstract0">
+      <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/YQqDfyF.jpg" alt="abstract0">
     </div>
     <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/KRVdGIu.jpg" alt="abstract1">
+      <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/KRVdGIu.jpg" alt="abstract1">
     </div>
     <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/qbZ7xVY.jpg" alt="abstract2">
+      <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/qbZ7xVY.jpg" alt="abstract2">
     </div>
     <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/n4de5bt.jpg" alt="abstract3">
+      <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/n4de5bt.jpg" alt="abstract3">
     </div>
   </div>  
 ```
 
-  <div id="crossorigin" class="image-list">
-    <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/YQqDfyF.jpg" alt="abstract0">
+  <div id="crossorigin" class="grid-x grid-margin-x medium-up-2 grid-margin-x-bottom">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/YQqDfyF.jpg" alt="abstract0">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/KRVdGIu.jpg" alt="abstract1">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/KRVdGIu.jpg" alt="abstract1">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/qbZ7xVY.jpg" alt="abstract2">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/qbZ7xVY.jpg" alt="abstract2">
+      </div>
     </div>
-    <div class="hoverTarget">
-      <img class="imageTarget" crossorigin="anonymous" width="400" height="200" src="http://i.imgur.com/n4de5bt.jpg" alt="abstract3">
+    <div class="cell">
+      <div class="hoverTarget">
+        <img class="imageTarget" crossorigin="anonymous" src="http://i.imgur.com/n4de5bt.jpg" alt="abstract3">
+      </div>
     </div>
   </div>
   

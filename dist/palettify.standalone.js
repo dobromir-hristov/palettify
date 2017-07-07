@@ -691,7 +691,7 @@ function createPalettify () {
     // Our sample is not a img tag so we try to get its background image.
     if (isNotIMG || (isCors && !cachedImg.crossOrigin)) {
       if (isNotIMG && !cachedImg.style.backgroundImage) { throw Error('Tag provided is not an image and does not have a background-image style attached to it.') }
-      cachedImg = new Image(imgElement.offsetWidth, imgElement.offsetHeight);
+      cachedImg = new Image(imgElement.naturalWidth, imgElement.naturalHeight);
       isCors && (cachedImg.crossOrigin = 'anonymous');
       cachedImg.src = src;
     }

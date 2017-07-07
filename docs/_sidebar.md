@@ -3,4 +3,4 @@
   - [Installation](installation.md)
   - [Getting Started](started.md)
   - [Advanced](advanced.md)
-  - [Effects](effects.md)
+  - [Cool Effects](effects.md)

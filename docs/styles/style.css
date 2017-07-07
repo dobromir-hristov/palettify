@@ -1,4 +1,4 @@
-.image-list{
+.image-list {
   list-style: none;
   display: flex;
   flex-flow: row wrap;
@@ -16,9 +16,22 @@
   height: auto;
 }
 
+.imageTarget {
+  transition: .3s;
+}
+
 .attachTo {
   transition: .3s;
   display: block;
+}
+
+.image-on-background {
+  height: 200px;
+  background-size: cover;
+}
+
+.grid-margin-x-bottom > .cell {
+  margin-bottom: 30px;
 }
 
 /* Docsify styles */
