@@ -1,3 +1,8 @@
+# Some cooler effects
+Most of the effects stated bellow need the extra styling from `palettify.min.css`. You can use the scss from the `src` folder as well.
+
+Some of the styles are borrowed from [here](http://freefrontend.com/css-image-effects/#image-overlay-effects) to show how you can give them a nice colorful twist. Go by their website and see all the cool effects they show off.
+
 ## diagonalBackground
 _include extra palettify styles_
 ```html
