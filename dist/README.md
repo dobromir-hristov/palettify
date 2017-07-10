@@ -4,6 +4,8 @@
 - CommonJS: palettify.common.js
 - ES Module: palettify.esm.js
 - UMD: palettify.standalone.js
+- UMD: palettify.styles.min.js - _Optional style presets_
+- CSS: palettify.min.css - _Optional css styles. Required for some advanced styles showed in the docs_
 
 ### Terms
 
