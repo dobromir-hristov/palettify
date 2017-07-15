@@ -70,6 +70,11 @@
     "dist/palettify.js",
     "dist/palettify.min.js",
     "dist/palettify.common.js",
+    "dist/palettify.esm.js",
+    "dist/palettify.min.css",
+    "dist/palettify.standalone.js",
+    "dist/palettify.standalone.min.js",
+    "dist/palettify.styles.min.js",
     "src"
   ],
   "homepage": "https://github.com/dobromir-hristov/palettify#readme",
