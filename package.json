@@ -1,7 +1,7 @@
 {
   "name": "palettify",
   "description": "Configurable JavaScript plugin to extract image primary colors and apply cool effects to it.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Dobromir Hristov"
   },
