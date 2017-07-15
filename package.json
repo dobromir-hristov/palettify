@@ -101,8 +101,7 @@
   "scripts": {
     "build": "node config/build.js && npm run docs:build",
     "dev": "webpack-dev-server --inline --config config/webpack.dev.conf.js",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s -p eslint",
-    "release": "conventional-github-releaser -p eslint",
+    "release": "standard-version -a",
     "clean": "rm -rf coverage && rm -rf dist/*.js* && rm ./*.log",
     "docs": "docsify serve docs",
     "docs:build": "node config/version.js",
@@ -116,6 +115,11 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "standard-version": {
+    "scripts": {
+      "postchangelog": "npm run build && git add -A"
     }
   }
 }
