@@ -1,5 +1,5 @@
 /*!
- * palettify v1.0.0 
+ * palettify v1.0.2 
  * (c) 2017 Dobromir Hristov
  * Released under the MIT License.
  */
