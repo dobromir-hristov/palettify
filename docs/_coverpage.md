@@ -4,9 +4,9 @@
 
 > An eye catching image effect plugin
 
-- Configurable plugin to extract image primary colors and apply cool effects to it.
+- Configurable plugin to apply visual effects to images using their color palette 
 - Extendable and easily configurable
 - Brings its own effects to the party
 
-[GitHub](https://github.com/QingWei-Li/docsify/)
+[GitHub](https://github.com/dobromir-hristov/palettify)
 [Get Started](#intro)
