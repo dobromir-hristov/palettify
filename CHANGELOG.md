@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/dobromir-hristov/palettify/compare/v1.0.2...v1.0.3) (2018-05-11)
+
+
+### Bug Fixes
+
+* fixed outdated dependency tree ([ba481ec](https://github.com/dobromir-hristov/palettify/commit/ba481ec))
+* text change and url replace ([3eec130](https://github.com/dobromir-hristov/palettify/commit/3eec130))
+* url change. ([1022f50](https://github.com/dobromir-hristov/palettify/commit/1022f50))
+
 
 
 <a name="1.0.2"></a>
